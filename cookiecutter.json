@@ -1,0 +1,7 @@
+{
+    "name": "Foo Python Package",
+    "repo_name": "{{ cookiecutter.name | lower | replace(' ', '_') | replace('.', '_') }}",
+    "python_version": "3.5",
+    "python": "python{{ cookiecutter.python_version }}",
+    "virtualenv_dir_name": ".venv"
+}

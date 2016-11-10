@@ -1,0 +1,30 @@
+{
+    "folders": [
+        {"path": "."}
+    ],
+
+    "settings": {
+        "python_interpreter": "$project_path/{{ cookiecutter.virtualenv_dir_name }}/bin/python"
+    },
+
+    "SublimeLinter": {
+        "@python": {{ cookiecutter.python_version }},
+
+        "linters": {
+            "pylint": {
+                "paths": ["${project}/{{ cookiecutter.virtualenv_dir_name }}/lib/{{ cookiecutter.python }}/site-packages"],
+
+                "disable": [
+                    "C0103",  // invalid-name
+                    "C0111",  // missing-docstring
+                    "C0321",  // multiple-statements
+                    "C0325",  // superfluous-parens
+                    "C0330",  // bad-continuation
+                    "C0413",  // wrong-import-position
+                    "R0903",  // too-few-public-methods
+                    "R0913",  // too-many-arguments
+                ]
+            }
+        }
+    }
+}
