@@ -1,0 +1,65 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+$NAME = '{{ cookiecutter.vagrant_name }}'
+
+$BOX = '{{ cookiecutter.vagrant_box }}'
+$HOSTNAME = '{{ cookiecutter.vagrant_hostname }}'
+
+# IP masking rule:
+# 10.DATACENTER.RACK.RACKU+IP_OFFSET
+$IP = '{{ cookiecutter.vagrant_ip }}'
+
+$CPUS = '{{ cookiecutter.vagrant_cpus }}'
+$MEMSZ = '{{ cookiecutter.vagrant_memsz }}'
+$VRAMSZ = '{{ cookiecutter.vagrant_vramsz }}'
+$ACCEL3D = '{{ cookiecutter.vagrant_accel3d }}'
+
+$PROVISION = '{{ cookiecutter.vagrant_provision }}'  # Path to the bash script or 'ansible'
+$ROLES = '{{ cookiecutter.vagrant_roles }}'  # Ansible roles
+ANSIBLE_VERBOSE = {{ cookiecutter.vagrant_ansible_verbose }}
+
+$SHARED = '{{ cookiecutter.vagrant_shared }}'  # host machine
+$SHARED_GUEST = '{{ cookiecutter.vagrant_shared_guest }}'  # guest machine
+
+$GUI = {{ cookiecutter.vagrant_gui }}
+
+
+Vagrant.configure('2') do |config|
+    config.vm.box = $BOX
+
+    # Provider.
+    config.vm.provider 'virtualbox' do |vbox|
+        vbox.gui = $GUI
+
+        vbox.customize ['modifyvm', :id, '--cpus', $CPUS]
+        vbox.customize ['modifyvm', :id, '--memory', $MEMSZ]
+        vbox.customize ['modifyvm', :id, '--vram', $VRAMSZ]
+        vbox.customize ['modifyvm', :id, '--accelerate3d', $ACCEL3D]
+    end
+
+    # Network.
+    config.ssh.forward_agent = true
+
+    config.vm.hostname = $HOSTNAME
+
+    # config.vm.network 'forwarded_port', guest: 80, host: 8080
+    config.vm.network 'private_network', ip: $IP, auto_correct: true
+    # config.vm.network 'public_network'
+
+    # Provision.
+    if File.exists? $PROVISION
+        config.vm.provision :shell, :path => $PROVISION
+    elsif $PROVISION == 'ansible'
+        config.vm.provision :ansible do |ansible|
+            ansible.playbook = 'deploy/playbook.yml'
+
+            if ANSIBLE_VERBOSE then ansible.verbose = 'vvvv' end
+        end
+    end
+
+    # Shared folder.
+    if File.exists? $SHARED
+        config.vm.synced_folder $SHARED, $SHARED_GUEST
+    end
+end
