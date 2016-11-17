@@ -23,6 +23,7 @@
                     "C0413",  // wrong-import-position
                     "R0903",  // too-few-public-methods
                     "R0913",  // too-many-arguments
+                    "R0914",  // too-many-locals
                 ]
             }
         }
