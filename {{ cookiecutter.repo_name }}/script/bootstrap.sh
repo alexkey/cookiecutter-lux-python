@@ -66,6 +66,12 @@ function main () {
     # Pip.
     wget -qO- https://bootstrap.pypa.io/get-pip.py | python
     pip install -U ${PIP_DEPS[*]}
+
+    {%- if cookiecutter.vagrant_shell_source %}
+
+    # Additional shell source for a custom setup.
+    source {{ cookiecutter.vagrant_shared_guest }}/{{ cookiecutter.vagrant_shell_source }}
+    {%- endif %}
 }
 
 

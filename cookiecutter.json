@@ -16,6 +16,7 @@
     "vagrant_vramsz": "16",
     "vagrant_accel3d": "off",
     "vagrant_provision": "script/bootstrap.sh",
+    "vagrant_shell_source": "",
     "vagrant_roles": "all",
     "vagrant_ansible_verbose": "false",
     "vagrant_shared": ".",
