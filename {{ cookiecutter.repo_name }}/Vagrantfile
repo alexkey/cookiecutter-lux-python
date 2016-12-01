@@ -43,8 +43,8 @@ Vagrant.configure('2') do |config|
 
     config.vm.hostname = $HOSTNAME
 
-    # config.vm.network 'forwarded_port', guest: 80, host: 8080
-    config.vm.network 'private_network', ip: $IP, auto_correct: true
+    config.vm.network 'forwarded_port', guest: {{ cookiecutter.forwarded_port_guest }}, host: {{ cookiecutter.forwarded_port_host }}
+    # config.vm.network 'private_network', ip: $IP, auto_correct: true
     # config.vm.network 'public_network'
 
     # Provision.

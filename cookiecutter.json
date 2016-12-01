@@ -11,6 +11,8 @@
     "vagrant_name": "Foo",
     "vagrant_box": "debian/jessie64",
     "vagrant_hostname": "foo",
+    "forwarded_port_guest": "80",
+    "forwarded_port_host": "8080",
     "vagrant_ip": "10.1.1.101",
     "vagrant_cpus": "2",
     "vagrant_memsz": "2048",
