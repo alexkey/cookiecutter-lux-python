@@ -7,6 +7,8 @@
     "version": "0.1.0",
     "author_name": "Waldo Garply",
     "author_email": "waldo@foobar.org",
+    "url": "https://waldo.foobar.org",
+    "license": "BSD3",
     "year": "2017",
     "python_version": "3.5",
     "python": "python{{ cookiecutter.python_version }}",
