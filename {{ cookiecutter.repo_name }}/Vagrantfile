@@ -60,6 +60,7 @@ Vagrant.configure('2') do |config|
 
     # Shared folder.
     if File.exists? $SHARED
-        config.vm.synced_folder $SHARED, $SHARED_GUEST
+        config.vm.synced_folder $SHARED, $SHARED_GUEST, type: 'rsync',
+            rsync__args: ['--verbose', '--archive', '--delete', '--compress']
     end
 end
