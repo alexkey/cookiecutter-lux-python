@@ -57,8 +57,8 @@ setup_params = dict(
     long_description=dedent("""
         {{ cookiecutter.description | replace('\n', '\n        ') }}
         """).strip(),
-    author="{{ cookiecutter.author }}",
-    author_email='{{ cookiecutter.email }}',
+    author="{{ cookiecutter.author_name }}",
+    author_email='{{ cookiecutter.author_email }}',
     url='{{ cookiecutter.url }}',
 
     classifiers=dedent("""
