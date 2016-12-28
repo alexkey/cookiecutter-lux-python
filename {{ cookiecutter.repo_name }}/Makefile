@@ -57,8 +57,7 @@ SPHINX_BUILDDIR = $(docdir)/_build
 SPHINX_STATIC = $(docdir)/_static
 SPHINX_TEMPLATES = $(docdir)/_templates
 
-SPHINX_OPTS = -d $(SPHINX_BUILDDIR)/doctrees -D latex_paper_size=a4 \
-	$(CURDIR)/doc
+SPHINX_OPTS = -d $(SPHINX_BUILDDIR)/doctrees $(CURDIR)/doc
 
 SPHINX = sphinx-build
 ifeq (,$(shell which ${SPHINX}))
