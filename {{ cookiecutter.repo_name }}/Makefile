@@ -12,6 +12,7 @@ srcdir = $(CURDIR)/$(PACKAGE_NAME)
 builddir = $(CURDIR)/build
 distdir = $(CURDIR)/dist
 docdir = $(CURDIR)/doc
+autodocdir = $(docdir)/autodoc
 
 ## Tools.
 
@@ -65,6 +66,13 @@ SPHINX = sphinx-build
 ifeq (,$(shell which ${SPHINX}))
 	doctools += $(SPHINX)
 endif
+
+SPHINX_APIDOC = sphinx-apidoc
+ifeq (,$(shell which ${SPHINX_APIDOC}))
+	doctools += $(SPHINX_APIDOC)
+endif
+
+AUTODOC_EXCLUDE_MODULES =
 
 
 ##
@@ -133,6 +141,11 @@ doc:
 ifdef doctools
 	$(error Can't find tools:${doctools})
 endif
+
+.PHONY: apidoc
+apidoc:
+	@$(SPHINX_APIDOC) --private -o "$(autodocdir)" $(PACKAGE_NAME) \
+		$(foreach module,$(AUTODOC_EXCLUDE_MODULES),$(PACKAGE_NAME)/$(module))
 
 .PHONY: html
 # target: html – Render standalone HTML files
@@ -203,6 +216,7 @@ distclean:
 		"$(SPHINX_BUILDDIR)" \
 		"$(SPHINX_STATIC)" \
 		"$(SPHINX_TEMPLATES)"
+	@rm -fv "$(docdir)/autodoc"/*.rst
 
 .PHONY: mostlyclean
 # target: mostlyclean – Delete almost everything
