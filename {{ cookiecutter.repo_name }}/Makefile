@@ -185,7 +185,7 @@ help:
 .PHONY: clean
 # target: clean – Clean the project's directrory
 clean:
-	@find "$(VENV_DIR)" \
+	@find "$(CURDIR)" \
 		-name *.py[cod] -exec rm -fv {} + -o \
 		-name __pycache__ -exec rm -rfv {} +
 
