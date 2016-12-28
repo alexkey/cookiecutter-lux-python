@@ -6,7 +6,9 @@ SHELL = /bin/bash
 
 .SUFFIXES:
 
-srcdir = $(CURDIR)/{{ cookiecutter.repo_name }}
+PACKAGE_NAME = {{ cookiecutter.repo_name }}
+
+srcdir = $(CURDIR)/$(PACKAGE_NAME)
 builddir = $(CURDIR)/build
 distdir = $(CURDIR)/dist
 docdir = $(CURDIR)/doc
