@@ -1,6 +1,7 @@
 .vagrant
 .DS_Store
 
+*~
 *.sublime-workspace
 
 .venv
