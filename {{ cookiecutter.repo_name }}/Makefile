@@ -144,7 +144,7 @@ endif
 
 .PHONY: apidoc
 apidoc:
-	@$(SPHINX_APIDOC) --private -o "$(autodocdir)" $(PACKAGE_NAME) \
+	@$(SPHINX_APIDOC) --force --private -o "$(autodocdir)" $(PACKAGE_NAME) \
 		$(foreach module,$(AUTODOC_EXCLUDE_MODULES),$(PACKAGE_NAME)/$(module))
 
 .PHONY: html
