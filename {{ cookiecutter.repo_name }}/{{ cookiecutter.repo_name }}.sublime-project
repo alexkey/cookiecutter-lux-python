@@ -4,7 +4,9 @@
     ],
 
     "settings": {
-        "python_interpreter": "$project_path/{{ cookiecutter.virtualenv_dir_name }}/bin/python"
+        "python_interpreter": "$project_path/{{ cookiecutter.virtualenv_dir_name }}/bin/python",
+
+        "python_package_paths": []
     },
 
     "SublimeLinter": {
