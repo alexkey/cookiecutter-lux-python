@@ -151,6 +151,7 @@ ifdef doctools
 endif
 
 .PHONY: apidoc
+# target: apidoc - Create one reST file with automodule directives per package
 apidoc:
 	@$(SPHINX_APIDOC) --force --private -o "$(autodocdir)" $(PACKAGE_NAME) \
 		$(foreach module,$(AUTODOC_EXCLUDE_MODULES),$(PACKAGE_NAME)/$(module))
