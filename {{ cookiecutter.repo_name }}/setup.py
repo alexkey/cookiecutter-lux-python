@@ -65,6 +65,7 @@ setup_params = dict(
         Development Status :: 1 - Planning
         Operating System :: POSIX :: Linux
         Programming Language :: Python
+        Programming Language :: Python :: {{ cookiecutter.python_version }}
         """),
     license='{{ cookiecutter.license }}',
     keywords=[],

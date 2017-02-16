@@ -25,7 +25,7 @@ APT_DEPS_DEVELOP=(
     "strace"
 
     "python-software-properties"
-    "python-dev"
+    "python{{ cookiecutter.python_version }}-dev"
 
     "libncurses5-dev"
 )
@@ -64,7 +64,7 @@ function main () {
         # ${APT_DEPS_XORG[*]}
 
     # Pip.
-    wget -qO- https://bootstrap.pypa.io/get-pip.py | python
+    wget -qO- https://bootstrap.pypa.io/get-pip.py | python{{ cookiecutter.python_version }}
 
     mkdir "${HOME}/.pip"
     echo -e "[list]\nformat = {{ cookiecutter.pip_list_format }}" \
