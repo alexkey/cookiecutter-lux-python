@@ -5,15 +5,13 @@ include LICENSE
 include MANIFEST.in
 include Makefile
 include README.rst
-include deploy
 include requirements-test.txt
 include requirements.txt
-include script
 include setup.cfg
 
 recursive-include doc *.rst *.py
-recursive-include {{ cookiecutter.repo_name }} *.py
 
 global-exclude __pycache__ *.py[cod]
 
+prune .vagrant
 prune .venv
