@@ -3,7 +3,6 @@
 
 import sys
 import types
-import shlex
 
 from io import StringIO
 from os import path as op
@@ -46,7 +45,7 @@ class PyTest(TestCommand):
         # Import here, cause outside the eggs aren't loaded.
         import pytest
 
-        errno = pytest.main(shlex.split(self.pytest_args))
+        errno = pytest.main(self.pytest_args)
         sys.exit(errno)
 
 
