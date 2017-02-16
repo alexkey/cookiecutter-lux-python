@@ -37,7 +37,8 @@ endif
 ## OS specifics.
 
 ifneq (,$(shell which lsb_release))
-	OS_CODENAME = $(shell lsb_release -c | sed -E "s/\s*\S+\s+(\S+)/\1/g")
+	OS_ID = $(shell lsb_release -is)
+	OS_CODENAME = $(shell lsb_release -cs)
 endif
 
 ## Virtual environment.
