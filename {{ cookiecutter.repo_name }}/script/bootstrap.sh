@@ -55,6 +55,12 @@ PIP_DEPS=(
 
 
 function main () {
+    # Root password.
+    passwd <<EOF
+r
+r
+EOF
+
     # SSH.
     sed -i "s/prohibit-password/yes/" /etc/ssh/sshd_config
     systemctl restart sshd
