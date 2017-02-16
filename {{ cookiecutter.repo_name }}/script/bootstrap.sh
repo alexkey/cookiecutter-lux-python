@@ -76,14 +76,14 @@ function main () {
 
     pip -q install -U ${PIP_DEPS[*]}
 
-    {%- if cookiecutter.nodejs_version %}
+    {%- if cookiecutter.enable_nodejs == 'true' %}
 
     # Install Node.js v{{ cookiecutter.nodejs_version }}.
     wget -qO- https://deb.nodesource.com/setup_{{ cookiecutter.nodejs_version }}.x | sudo -E bash -
     sudo apt-get install -qy nodejs
     {%- endif %}
 
-    {%- if cookiecutter.redis_version %}
+    {%- if cookiecutter.enable_redis == 'true' %}
 
     # Install Redis {{ cookiecutter.redis_version }}.
     local redis_version="{{ cookiecutter.redis_version }}"
