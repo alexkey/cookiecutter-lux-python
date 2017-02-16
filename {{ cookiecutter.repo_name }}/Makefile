@@ -163,6 +163,11 @@ pdf:
 ##
 # Vagrant targets.
 
+.PHONY: update
+# target: update - Updates the machine that is in use in the current Vagrant environment
+update:
+	@$(VAGRANT) box update
+
 .PHONY: up
 # target: up – Start and provision the Vagrant environment
 up:
