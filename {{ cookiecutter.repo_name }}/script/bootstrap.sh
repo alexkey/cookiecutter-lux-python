@@ -32,7 +32,7 @@ APT_DEPS_DEVELOP=(
 
 APT_DEPS_EDIT=(
     "vim"
-    "emacs23-nox"
+    "emacs-nox"
     "mc"
 )
 
@@ -55,6 +55,10 @@ PIP_DEPS=(
 
 
 function main () {
+    # SSH.
+    sed -i "s/prohibit-password/yes/" /etc/ssh/sshd_config
+    systemctl restart sshd
+
     # APT sources & dependencies.
     apt-get update -q
     apt-get install -qy \
