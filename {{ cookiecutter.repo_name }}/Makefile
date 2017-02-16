@@ -147,6 +147,13 @@ test:
 .PHONY: doc
 doc:
 ifdef doctools
+ifeq ($(OS_ID),Ubuntu)
+ifeq (${PDFLATEX},$(filter ${PDFLATEX},${doctools}))
+	$(warning TeXLive package need to be installed. \
+		Try: 'apt-get install texlive-full')
+endif
+endif
+
 	$(error Can't find tools:${doctools})
 endif
 
