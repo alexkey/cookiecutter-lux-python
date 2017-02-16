@@ -103,7 +103,13 @@ setup_params = dict(
     #     'PDF':  ['ReportLab>=1.2', "RXP'],
     #     'reST': ['docutils>=0.3'],
     # },
-    setup_requires=['wheel', 'sphinx', 'sphinx-pypi-upload'],
+    setup_requires=[
+        'wheel',
+{%- if cookiecutter.enable_sphinx == 'true' %}
+        'sphinx',
+        'sphinx-pypi-upload3',
+{%- endif %}
+    ],
     tests_require=_read_requirements('requirements-test.txt'),
 
     cmdclass={'test': PyTest},

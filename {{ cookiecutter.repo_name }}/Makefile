@@ -11,8 +11,10 @@ PACKAGE_NAME = {{ cookiecutter.repo_name }}
 srcdir = $(CURDIR)/$(PACKAGE_NAME)
 builddir = $(CURDIR)/build
 distdir = $(CURDIR)/dist
+{%- if cookiecutter.enable_sphinx == 'true' %}
 docdir = $(CURDIR)/doc
 autodocdir = $(docdir)/autodoc
+{%- endif %}
 
 ## Tools.
 
@@ -50,6 +52,8 @@ ifeq (,$(shell which ${VENV}))
 	tools += $(VENV)
 endif
 
+{%- if cookiecutter.enable_sphinx == 'true' %}
+
 ## Documentation.
 
 PDFLATEX = pdflatex
@@ -74,6 +78,7 @@ ifeq (,$(shell which ${SPHINX_APIDOC}))
 endif
 
 AUTODOC_EXCLUDE_MODULES =
+{%- endif %}
 
 
 ##
@@ -133,6 +138,8 @@ uninstall:
 test:
 	@python setup.py test
 
+{%- if cookiecutter.enable_sphinx == 'true' %}
+
 
 ##
 # Documentation targets.
@@ -158,6 +165,7 @@ html:
 pdf:
 	@$(SPHINX) -b latex $(SPHINX_OPTS) "$(SPHINX_BUILDDIR)/latex" && \
 		$(MAKE) -C "$(SPHINX_BUILDDIR)/latex" all-pdf
+{%- endif %}
 
 
 ##
@@ -219,10 +227,12 @@ distclean:
 	@rm -rfv \
 		"$(builddir)" \
 		"$(distdir)" \
+{%- if cookiecutter.enable_sphinx == 'true' %}
 		"$(SPHINX_BUILDDIR)" \
 		"$(SPHINX_STATIC)" \
 		"$(SPHINX_TEMPLATES)"
 	@rm -fv "$(docdir)/autodoc"/*.rst
+{%- endif %}
 
 .PHONY: mostlyclean
 # target: mostlyclean – Delete almost everything
