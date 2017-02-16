@@ -31,10 +31,13 @@ ifeq (,$(shell which ${SED}))
 	tools += $(SED)
 endif
 
+{%- if cookiecutter.enable_vagrant == 'true' %}
+
 VAGRANT = vagrant
 ifeq (,$(shell which ${VAGRANT}))
 	tools += $(VAGRANT)
 endif
+{%- endif %}
 
 ## OS specifics.
 
@@ -175,6 +178,8 @@ pdf:
 		$(MAKE) -C "$(SPHINX_BUILDDIR)/latex" all-pdf
 {%- endif %}
 
+{%- if cookiecutter.enable_vagrant == 'true' %}
+
 
 ##
 # Vagrant targets.
@@ -203,6 +208,7 @@ halt:
 # target: destroy – Stop and delete all traces of the Vagrant machine
 destroy:
 	@$(VAGRANT) destroy
+{%- endif %}
 
 
 ##
@@ -248,5 +254,7 @@ mostlyclean: clean distclean
 	@find "$(CURDIR)" -name .DS_Store -exec rm -fv {} +
 
 	@rm -rfv \
+{%- if cookiecutter.enable_vagrant == 'true' %}
 		"$(CURDIR)/.vagrant" \
+{%- endif %}
 		"$(VENV_DIR)"
