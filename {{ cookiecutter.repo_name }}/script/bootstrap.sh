@@ -25,7 +25,7 @@ APT_DEPS_DEVELOP=(
     "strace"
 
     "python-software-properties"
-    "python{{ cookiecutter.python_version }}-dev"
+    "python{{ cookiecutter.python_version[0] }}-dev"
 
     "libncurses5-dev"
 )
