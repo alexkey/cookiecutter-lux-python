@@ -4,11 +4,12 @@
 import pytest
 from unittest import TestCase
 
-
 from {{ cookiecutter.repo_name }} import *
+from {{ cookiecutter.repo_name }}.test.test_{{ cookiecutter.repo_name }} import *
 
 
 class {{ cookiecutter.class_name }}Test(TestCase):
+
     def setUp(self):
         pass
 
@@ -16,7 +17,7 @@ class {{ cookiecutter.class_name }}Test(TestCase):
         pass
 
     def test_{{ cookiecutter.repo_name }}(self):
-        self.assertTrue(1)
+        assert True
 
 
 if __name__ == '__main__':
