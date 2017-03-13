@@ -162,18 +162,18 @@ endif
 
 .PHONY: apidoc
 # target: apidoc - Create one reST file with automodule directives per package
-apidoc:
+apidoc: doc
 	@$(SPHINX_APIDOC) --force --private -o "$(autodocdir)" $(PACKAGE_NAME) \
 		$(foreach module,$(AUTODOC_EXCLUDE_MODULES),$(PACKAGE_NAME)/$(module))
 
 .PHONY: html
 # target: html – Render standalone HTML files
-html:
+html: doc
 	@$(SPHINX) -b html $(SPHINX_OPTS) "$(SPHINX_BUILDDIR)/html"
 
 .PHONY: pdf
 # target: pdf – Render LaTeX files and run them through pdflatex
-pdf:
+pdf: doc
 	@$(SPHINX) -b latex $(SPHINX_OPTS) "$(SPHINX_BUILDDIR)/latex" && \
 		$(MAKE) -C "$(SPHINX_BUILDDIR)/latex" all-pdf
 {%- endif %}
