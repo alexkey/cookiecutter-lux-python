@@ -44,7 +44,7 @@
     "nodejs_version": "7",
 
     "enable_redis": "false",
-    "redis_version": "3.2.5",
+    "redis_version": "3.2.8",
     "redis_port": "{{ '6379' if cookiecutter.redis_version else 'n/a' }}",
     "redis_config_file": "{{ '/etc/redis/%s.conf' % cookiecutter.redis_port if cookiecutter.redis_version else 'n/a' }}",
     "redis_log_file": "{{ '/var/log/redis_%s.log' % cookiecutter.redis_port if cookiecutter.redis_version else 'n/a' }}",
