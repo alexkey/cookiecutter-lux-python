@@ -94,7 +94,7 @@ endif
 
 
 ##
-# Virtual environment targets.
+# Virtual environment.
 
 $(VENV_DIR): requirements.txt requirements-test.txt
 	@$(VENV) -p {{ cookiecutter.python }} "$(VENV_DIR)"
@@ -108,7 +108,7 @@ venv: $(VENV_DIR)
 
 
 ##
-# Building and packaging targets.
+# Building and packaging.
 
 .PHONY: dist
 # target: dist – Create a binary (wheel) distribution
@@ -134,7 +134,7 @@ uninstall:
 
 
 ##
-# Testing targets.
+# Testing.
 
 .PHONY: test
 # target: test – Run project tests
@@ -145,7 +145,7 @@ test:
 
 
 ##
-# Documentation targets.
+# Documentation.
 
 .PHONY: doc
 doc:
@@ -182,7 +182,7 @@ pdf: doc
 
 
 ##
-# Vagrant targets.
+# Vagrant.
 
 .PHONY: update
 # target: update - Updates the machine that is in use in the current Vagrant environment
