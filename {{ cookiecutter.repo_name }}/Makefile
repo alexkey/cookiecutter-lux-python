@@ -139,7 +139,7 @@ uninstall:
 .PHONY: test
 # target: test – Run project tests
 test:
-	@python setup.py test
+	@python setup.py test -a "-vv"
 
 {%- if cookiecutter.enable_sphinx == 'true' %}
 
