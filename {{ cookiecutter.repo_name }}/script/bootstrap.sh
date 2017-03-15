@@ -1,5 +1,5 @@
-{{ cookiecutter.shebang_coding }}
 {{ cookiecutter.shebang_shell }}
+{{ cookiecutter.shebang_coding }}
 
 set -eo pipefail
 
