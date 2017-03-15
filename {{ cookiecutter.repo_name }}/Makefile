@@ -89,7 +89,7 @@ endif
 
 all: help
 ifdef tools
-	$(error Can't find tools:${tools})
+	$(error "Can't find tools:${tools}")
 endif
 
 
@@ -157,7 +157,7 @@ ifeq (${PDFLATEX},$(filter ${PDFLATEX},${doctools}))
 endif
 endif
 
-	$(error Can't find tools:${doctools})
+	$(error "Can't find tools:${doctools}")
 endif
 
 .PHONY: apidoc
