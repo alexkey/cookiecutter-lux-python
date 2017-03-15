@@ -49,8 +49,6 @@ PIP_DEPS=(
     "setuptools"
     "wheel"
     "virtualenv"
-    "ipython"
-    "ipdb"
 )
 
 
