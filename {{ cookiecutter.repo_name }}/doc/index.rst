@@ -1,14 +1,20 @@
-Welcome to {{ cookiecutter.name }}'s documentation!
-===================================================
+Welcome to {{ cookiecutter.name }} |release|!
+=============================================
 
-Contents:
+Contents
+--------
 
 .. toctree::
-   :maxdepth: 2
 
-Indices and tables
-==================
+   README <readme>
+   Contributing <contributing>
+   Authors <authors>
 
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
+Navigation
+----------
+
+:ref:`genindex`
+
+:ref:`modindex`
+
+:ref:`search`
