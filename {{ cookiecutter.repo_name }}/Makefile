@@ -232,6 +232,7 @@ distclean:
 		-name *.dist-info -exec rm -rfv {} +
 
 	@rm -rfv \
+		"$(CURDIR)/.eggs" \
 		"$(builddir)" \
 		"$(distdir)" \
 {%- if cookiecutter.enable_sphinx == 'true' %}
