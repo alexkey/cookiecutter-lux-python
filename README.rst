@@ -7,6 +7,11 @@ Cookiecutter_ template for a Python package.
 The boilerplate Python project that aims to create facility for maintaining of
 the package easily. It considering tools for building, testing and distribution.
 
+Breaking Changes
+----------------
+
+**Attention!** There are breaking changes since `version 1.0`_.
+
 Get Started
 -----------
 
@@ -34,6 +39,7 @@ Features
 * `GNU-style cleaners`_: ``make clean``, ``make distclean``,
   ``make mostlyclean``.
 
+.. _`version 1.0`: https://github.com/alexkey/cookiecutter-lux-python/releases/tag/1.0
 .. _Cookiecutter: https://github.com/audreyr/cookiecutter
 .. _Sphinx: http://www.sphinx-doc.org
 .. _Vagrant: https://www.vagrantup.com
