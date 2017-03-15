@@ -16,6 +16,13 @@ docdir = $(CURDIR)/doc
 autodocdir = $(docdir)/autodoc
 {%- endif %}
 
+## OS specifics.
+
+ifneq (,$(shell which lsb_release))
+	OS_ID = $(shell lsb_release -is)
+	OS_CODENAME = $(shell lsb_release -cs)
+endif
+
 ## Tools.
 
 tools =
@@ -39,13 +46,6 @@ ifeq (,$(shell which ${VAGRANT}))
 endif
 {%- endif %}
 
-## OS specifics.
-
-ifneq (,$(shell which lsb_release))
-	OS_ID = $(shell lsb_release -is)
-	OS_CODENAME = $(shell lsb_release -cs)
-endif
-
 ## Virtual environment.
 
 VENV_DIR = $(CURDIR)/.venv
@@ -58,11 +58,6 @@ endif
 {%- if cookiecutter.enable_sphinx == 'true' %}
 
 ## Documentation.
-
-PDFLATEX = pdflatex
-ifeq (,$(shell which ${PDFLATEX}))
-	doctools += $(PDFLATEX)
-endif
 
 SPHINX_BUILDDIR = $(docdir)/_build
 SPHINX_STATIC = $(docdir)/_static
@@ -81,6 +76,11 @@ ifeq (,$(shell which ${SPHINX_APIDOC}))
 endif
 
 AUTODOC_EXCLUDE_MODULES =
+
+PDFLATEX = pdflatex
+ifeq (,$(shell which ${PDFLATEX}))
+	doctools += $(PDFLATEX)
+endif
 {%- endif %}
 
 
