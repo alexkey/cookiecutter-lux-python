@@ -33,21 +33,9 @@
     "vagrant_vramsz": "16",
     "vagrant_accel3d": "off",
     "vagrant_provision": "script/bootstrap.sh",
-    "vagrant_shell_source": "",
     "vagrant_roles": "all",
     "vagrant_ansible_verbose": "false",
     "vagrant_shared": ".",
     "vagrant_shared_guest": "/var/shared",
-    "vagrant_gui": "false",
-
-    "enable_nodejs": "false",
-    "nodejs_version": "7",
-
-    "enable_redis": "false",
-    "redis_version": "3.2.8",
-    "redis_port": "{{ '6379' if cookiecutter.redis_version else 'n/a' }}",
-    "redis_config_file": "{{ '/etc/redis/%s.conf' % cookiecutter.redis_port if cookiecutter.redis_version else 'n/a' }}",
-    "redis_log_file": "{{ '/var/log/redis_%s.log' % cookiecutter.redis_port if cookiecutter.redis_version else 'n/a' }}",
-    "redis_data_dir": "{{ '/var/lib/redis/%s' % cookiecutter.redis_port if cookiecutter.redis_version else 'n/a' }}",
-    "redis_executable": "{{ '/usr/local/bin/redis-server' if cookiecutter.redis_version else 'n/a' }}"
+    "vagrant_gui": "false"
 }
