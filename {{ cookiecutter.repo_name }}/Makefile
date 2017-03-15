@@ -221,15 +221,15 @@ help:
 # target: clean – Clean the project's directrory
 clean:
 	@find "$(CURDIR)" \
-		-name *.py[cod] -exec rm -fv {} + -o \
+		-name "*.py[cod]" -exec rm -fv {} + -o \
 		-name __pycache__ -exec rm -rfv {} +
 
 .PHONY: distclean
 # target: distclean – Clean the project's build output.
 distclean:
 	@find "$(CURDIR)" -path "$(VENV_DIR)" -prune -o \
-		-name *.egg-info -exec rm -rfv {} + -o \
-		-name *.dist-info -exec rm -rfv {} +
+		-name "*.egg-info" -exec rm -rfv {} + -o \
+		-name "*.dist-info" -exec rm -rfv {} +
 
 	@rm -rfv \
 		"$(CURDIR)/.eggs" \
