@@ -13,5 +13,8 @@ recursive-include doc *.rst *.py
 
 global-exclude __pycache__ *.py[cod]
 
+{%- if cookiecutter.enable_vagrant == 'true' %}
+
 prune .vagrant
+{%- endif %}
 prune .venv

@@ -1,4 +1,5 @@
-.vagrant
+{%- if cookiecutter.enable_vagrant == 'true' %}.vagrant
+{% endif -%}
 .DS_Store
 
 *~
