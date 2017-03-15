@@ -50,7 +50,7 @@ class PyTest(TestCommand):
 
 
 setup_params = dict(
-    name="{{ cookiecutter.name }}",
+    name="{{ cookiecutter.class_name }}",
     version='{{ cookiecutter.version }}',
     description="{{ cookiecutter.brief }}",
     long_description=dedent("""
