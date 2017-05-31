@@ -1,6 +1,5 @@
 SHELL = /bin/bash
 
-
 ##
 # Definitions.
 
@@ -136,9 +135,9 @@ uninstall:
 ##
 # Testing.
 
-.PHONY: test
-# target: test – Run project tests
-test:
+.PHONY: check
+# target: test – Run tests
+check:
 	@python setup.py test -a "-vv"
 
 {%- if cookiecutter.enable_sphinx == 'true' %}
@@ -165,7 +164,7 @@ html: doc
 	@$(SPHINX) -b html $(SPHINX_OPTS) "$(SPHINX_BUILDDIR)/html"
 
 .PHONY: pdf
-# target: pdf – Render LaTeX files and run them through pdflatex
+# target: pdf – Generate LaTeX files and run them through pdflatex
 pdf: doc
 	@$(SPHINX) -b latex $(SPHINX_OPTS) "$(SPHINX_BUILDDIR)/latex" && \
 		$(MAKE) -C "$(SPHINX_BUILDDIR)/latex" all-pdf

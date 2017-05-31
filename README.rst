@@ -29,7 +29,7 @@ Features
 * Building and packaging: ``make dist``, ``make sdist``, ``make install``,
   ``make uninstall``.
 
-* Testing: ``make test``.
+* Testing: ``make check``.
 
 * Render project's documentation using Sphinx_: ``make html``, ``make pdf``.
 
