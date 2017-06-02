@@ -8,7 +8,7 @@ from {{ cookiecutter.repo_name }} import *
 from {{ cookiecutter.repo_name }}.test.test_{{ cookiecutter.repo_name }} import *
 
 
-class {{ cookiecutter.class_name }}Test(TestCase):
+class Test{{ cookiecutter.class_name }}(TestCase):
 
     def setUp(self):
         pass
