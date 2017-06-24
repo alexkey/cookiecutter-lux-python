@@ -6,8 +6,8 @@
     "description": "The boilerplate Python project that aims to create facility for maintaining of\nthe package easily. It considering tools for building, testing and distribution.",
     "version": "0.1.0",
     "author_name": "Waldo Garply",
-    "author_email": "waldo@foobar.org",
-    "url": "https://waldo.foobar.org",
+    "author_email": "waldo@example.com",
+    "url": "https://waldo.example.com",
     "license": "BSD3",
     "year": "2017",
 
