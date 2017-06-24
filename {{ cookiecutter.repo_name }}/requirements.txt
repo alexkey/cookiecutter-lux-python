@@ -1,1 +1,2 @@
-sphinx
+{%- if cookiecutter.enable_sphinx == 'true' %}sphinx
+{% endif -%}
