@@ -6,8 +6,9 @@
 *.log
 *.sublime-workspace
 
-.venv
+.cache
 .eggs
+.venv
 __pycache__
 build
 dist
