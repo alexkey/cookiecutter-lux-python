@@ -33,8 +33,8 @@ Features
 
 * Render project's documentation using Sphinx_: ``make html``, ``make pdf``.
 
-* Managing Vagrant_ virtual machines: ``make up``, ``make ssh``, ``make halt``,
-  ``make destroy``.
+* Managing Vagrant_ virtual machines: ``make update``, ``make up``,
+  ``make ssh``, ``make halt``, ``make destroy``.
 
 * `GNU-style cleaners`_: ``make clean``, ``make distclean``,
   ``make mostlyclean``.
