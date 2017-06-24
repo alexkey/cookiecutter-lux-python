@@ -25,7 +25,6 @@ endif
 ## Tools.
 
 tools =
-doctools =
 
 ifeq (Darwin,$(shell uname -s))
 	SED = gsed
@@ -57,6 +56,8 @@ endif
 {%- if cookiecutter.enable_sphinx == 'true' %}
 
 ## Documentation.
+
+doctools =
 
 SPHINX_BUILDDIR = $(docdir)/_build
 SPHINX_STATIC = $(docdir)/_static
