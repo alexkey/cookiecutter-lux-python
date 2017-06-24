@@ -251,4 +251,5 @@ mostlyclean: clean distclean
 {%- if cookiecutter.enable_vagrant == 'true' %}
 		"$(CURDIR)/.vagrant" \
 {%- endif %}
+		"$(CURDIR)/.cache" \
 		"$(VENV_DIR)"
