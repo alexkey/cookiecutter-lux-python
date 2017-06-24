@@ -2,22 +2,23 @@
 {{ cookiecutter.shebang_coding }}
 
 import pytest
-from unittest import TestCase
 
 from {{ cookiecutter.repo_name }} import *
-from {{ cookiecutter.repo_name }}.test.test_{{ cookiecutter.repo_name }} import *
+from {{ cookiecutter.repo_name }}.tests.test_{{ cookiecutter.repo_name }} import *
 
 
-class Test{{ cookiecutter.class_name }}(TestCase):
+class Test{{ cookiecutter.class_name }}:
 
-    def setUp(self):
+    def _setup(self):
         pass
 
-    def tearDown(self):
+    def _teardown(self):
         pass
 
     def test_{{ cookiecutter.repo_name }}(self):
+        self._setup()
         assert True
+        self._teardown()
 
 
 if __name__ == '__main__':
