@@ -51,7 +51,7 @@ class PyTest(TestCommand):
 
 setup_params = dict(
     name="{{ cookiecutter.class_name }}",
-    version='{{ cookiecutter.version }}',
+    version={{ cookiecutter.repo_name }}.__version__,
     description="{{ cookiecutter.brief }}",
     long_description=dedent("""
         {{ cookiecutter.description | replace('\n', '\n        ') }}
