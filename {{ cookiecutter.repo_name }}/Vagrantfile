@@ -15,8 +15,8 @@ $MEMSZ = '{{ cookiecutter.vagrant_memsz }}'
 $VRAMSZ = '{{ cookiecutter.vagrant_vramsz }}'
 $ACCEL3D = '{{ cookiecutter.vagrant_accel3d }}'
 
-$PROVISION = '{{ cookiecutter.vagrant_provision }}'  # Path to the bash script or 'ansible'
-$ROLES = '{{ cookiecutter.vagrant_roles }}'  # Ansible roles
+$PROVISION = '{{ cookiecutter.vagrant_provision }}'  # path to the bash script or `ansible`
+$ROLES = '{{ cookiecutter.vagrant_roles }}'  # ansible roles
 ANSIBLE_VERBOSE = {{ cookiecutter.vagrant_ansible_verbose }}
 
 $SHARED = '{{ cookiecutter.vagrant_shared }}'  # host machine
