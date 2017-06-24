@@ -137,7 +137,7 @@ uninstall:
 # Testing.
 
 .PHONY: check
-# target: test – Run tests
+# target: check – Run tests
 check:
 	@python setup.py test -a "-vv"
 
@@ -178,7 +178,7 @@ pdf: doc
 # Vagrant.
 
 .PHONY: update
-# target: update - Updates the machine that is in use in the current Vagrant environment
+# target: update - Update the machine that is in use in the current Vagrant environment
 update:
 	@$(VAGRANT) box update
 
@@ -188,17 +188,17 @@ up:
 	@$(VAGRANT) up
 
 .PHONY: ssh
-# target: ssh – Connect to machine via SSH as root
+# target: ssh – Connect to the machine via SSH as root
 ssh:
 	@$(VAGRANT) ssh -- -l root
 
 .PHONY: halt
-# target: halt – Stop the Vagrant machine
+# target: halt – Stop the machine
 halt:
 	@$(VAGRANT) halt
 
 .PHONY: destroy
-# target: destroy – Stop and delete all traces of the Vagrant machine
+# target: destroy – Stop and delete all traces of the machine
 destroy:
 	@$(VAGRANT) destroy
 {%- endif %}
@@ -225,7 +225,7 @@ clean:
 		-name __pycache__ -exec rm -rfv {} +
 
 .PHONY: distclean
-# target: distclean – Clean the project's build output.
+# target: distclean – Clean the project's build output
 distclean:
 	@find "$(CURDIR)" -path "$(VENV_DIR)" -prune -o \
 		-name "*.egg-info" -exec rm -rfv {} + -o \
