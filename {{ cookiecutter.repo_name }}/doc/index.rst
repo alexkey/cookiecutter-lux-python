@@ -5,6 +5,7 @@ Contents
 --------
 
 .. toctree::
+   :maxdepth: 1
 
    README <readme>
    Contributing <contributing>
