@@ -17,7 +17,7 @@ autodocdir = $(docdir)/autodoc
 
 ## OS specifics.
 
-ifneq (,$(shell which lsb_release))
+ifneq ($(shell which lsb_release),)
 	OS_ID = $(shell lsb_release -is)
 	OS_CODENAME = $(shell lsb_release -cs)
 endif
@@ -26,20 +26,20 @@ endif
 
 tools =
 
-ifeq (Darwin,$(shell uname -s))
+ifeq ($(shell uname -s),Darwin)
 	SED = gsed
 else
 	SED = sed
 endif
 
-ifeq (,$(shell which ${SED}))
+ifeq ($(shell which ${SED}),)
 	tools += $(SED)
 endif
 
 {%- if cookiecutter.enable_vagrant == 'true' %}
 
 VAGRANT = vagrant
-ifeq (,$(shell which ${VAGRANT}))
+ifeq ($(shell which ${VAGRANT}),)
 	tools += $(VAGRANT)
 endif
 {%- endif %}
@@ -49,7 +49,7 @@ endif
 VENV_DIR = $(CURDIR)/.venv
 
 VENV = virtualenv
-ifeq (,$(shell which ${VENV}))
+ifeq ($(shell which ${VENV}),)
 	tools += $(VENV)
 endif
 
@@ -66,19 +66,19 @@ SPHINX_TEMPLATES = $(docdir)/_templates
 SPHINX_OPTS = -d $(SPHINX_BUILDDIR)/doctrees $(CURDIR)/doc
 
 SPHINX = sphinx-build
-ifeq (,$(shell which ${SPHINX}))
+ifeq ($(shell which ${SPHINX}),)
 	doctools += $(SPHINX)
 endif
 
 SPHINX_APIDOC = sphinx-apidoc
-ifeq (,$(shell which ${SPHINX_APIDOC}))
+ifeq ($(shell which ${SPHINX_APIDOC}),)
 	doctools += $(SPHINX_APIDOC)
 endif
 
 AUTODOC_EXCLUDE_MODULES =
 
 PDFLATEX = pdflatex
-ifeq (,$(shell which ${PDFLATEX}))
+ifeq ($(shell which ${PDFLATEX}),)
 	doctools += $(PDFLATEX)
 endif
 {%- endif %}
