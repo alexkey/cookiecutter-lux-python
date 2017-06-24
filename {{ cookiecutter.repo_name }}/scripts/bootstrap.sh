@@ -5,50 +5,48 @@ set -eo pipefail
 
 
 APT_DEPS=(
-    "sudo"
-    "htop"
-    "sysv-rc-conf"
-
+    "ack-grep"
     "curl"
-    "wget"
     "git"
-
+    "htop"
     "links"
+    "sudo"
+    "sysv-rc-conf"
+    "wget"
 )
 
 APT_DEPS_DEVELOP=(
     "build-essential"
     "cmake"
-    "pkg-config"
+    "libncurses5-dev"
     "libtool"
-    "valgrind"
-    "strace"
-
+    "pkg-config"
     "python-software-properties"
     "python{{ cookiecutter.python_version[0] }}-dev"
-
-    "libncurses5-dev"
+    "strace"
+    "valgrind"
 )
 
 APT_DEPS_EDIT=(
-    "vim"
-    "emacs-nox"
+    "emacs24-nox"
     "mc"
+    "vim"
 )
 
 APT_DEPS_XORG=(
-    "virtualbox-guest-dkms"
-
-    "xorg"
     "fonts-droid"
-    "wmaker"
     "sakura"
+    "virtualbox-guest-dkms"
+    "wmaker"
+    "xorg"
 )
 
 PIP_DEPS=(
+    "ipdb"
+    "ipython"
     "setuptools"
-    "wheel"
     "virtualenv"
+    "wheel"
 )
 
 
@@ -78,7 +76,7 @@ EOF
     echo -e "[list]\nformat = {{ cookiecutter.pip_list_format }}" \
         > "${HOME}/.pip/pip.conf"
 
-    pip -q install -U ${PIP_DEPS[*]}
+    pip{{ cookiecutter.python_version[0] }} -q install -U ${PIP_DEPS[*]}
 }
 
 
