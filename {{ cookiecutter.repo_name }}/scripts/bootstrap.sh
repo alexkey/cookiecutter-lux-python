@@ -70,7 +70,7 @@ EOF
         # ${APT_DEPS_XORG[*]}
 
     # Pip.
-    wget -qO- https://bootstrap.pypa.io/get-pip.py | python{{ cookiecutter.python_version }}
+    wget -qO- https://bootstrap.pypa.io/get-pip.py | python{{ cookiecutter.python_version[0] }}
 
     mkdir "${HOME}/.pip"
     echo -e "[list]\nformat = {{ cookiecutter.pip_list_format }}" \
