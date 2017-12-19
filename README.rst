@@ -24,17 +24,28 @@ directly in `<cookiecutter.json>`_.
 Features
 --------
 
+* Managing Pip requirements: ``make requirements``.
+
 * Auto creation of virtual environment: ``make venv``.
 
 * Building and packaging: ``make dist``, ``make sdist``, ``make install``,
   ``make uninstall``.
 
+* Local docker statistics: ``docker-info``, ``docker-stats``,
+  ``docker-statsall``.
+
+* Build and run interactive containers: ``docker-build``, ``docker-run``.
+
+* Docker cleaners: ``docker-clean``, ``docker-distclean``,
+  ``docker-mostlyclean``.
+
 * Testing: ``make check``.
 
 * Render project's documentation using Sphinx_: ``make html``, ``make pdf``.
 
-* Managing Vagrant_ virtual machines: ``make update``, ``make up``,
-  ``make ssh``, ``make halt``, ``make destroy``.
+* Managing Vagrant_ virtual machines: ``make vagrant-update``,
+  ``make vagrant-up``, ``make vagrant-ssh``, ``make vagrant-halt``,
+  ``make vagrant-destroy``.
 
 * `GNU-style cleaners`_: ``make clean``, ``make distclean``,
   ``make mostlyclean``.
