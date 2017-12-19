@@ -6,6 +6,7 @@ SHELL = /bin/bash
 .SUFFIXES:
 
 PACKAGE_NAME = {{ cookiecutter.repo_name }}
+PACKAGE_VERSION = {{ cookiecutter.version }}
 
 srcdir = $(CURDIR)/$(PACKAGE_NAME)
 builddir = $(CURDIR)/build
@@ -74,6 +75,8 @@ DOCKER_BASE_IMAGE = python:{{ cookiecutter.python_version }}
 
 DOCKER_PS_ARGS = -s
 DOCKER_WORK_DIR = /var/app
+
+DOCKER_PORT = 8080
 
 {%- if cookiecutter.enable_sphinx == 'true' %}
 
@@ -170,6 +173,19 @@ docker-statsall:
 	@echo
 	@$(DOCKER) ps -a $(DOCKER_PS_ARGS)
 	@echo
+
+.PHONY: docker-build
+# target: docker-build - Build image from scratch
+docker-build: distclean dist
+	@$(DOCKER) build \
+		-f "$(CURDIR)/Dockerfile" -t "$(PACKAGE_NAME):$(PACKAGE_VERSION)" \
+		--no-cache .
+
+.PHONY: docker-run
+# target: Run temporary container in an interactive mode
+docker-run:
+	@$(DOCKER) run -it --rm -p "$(DOCKER_PORT):$(DOCKER_PORT)" \
+		"$(PACKAGE_NAME):$(PACKAGE_VERSION)"
 
 .PHONY: docker-clean
 # target: docker-clean – Clean dangling images
