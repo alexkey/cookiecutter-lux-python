@@ -36,6 +36,21 @@ ifeq ($(shell which ${SED}),)
 	tools += $(SED)
 endif
 
+GREPTOOL = ack
+ifeq (,$(shell which ${GREPTOOL}))
+    GREPTOOL = egrep
+endif
+
+AWK = awk
+ifeq (,$(shell which ${AWK}))
+    tools += $(AWK)
+endif
+
+DOCKER = docker
+ifeq (,$(shell which ${DOCKER}))
+    tools += $(DOCKER)
+endif
+
 {%- if cookiecutter.enable_vagrant == 'true' %}
 
 VAGRANT = vagrant
@@ -52,6 +67,13 @@ VENV = virtualenv
 ifeq ($(shell which ${VENV}),)
 	tools += $(VENV)
 endif
+
+## Docker.
+
+DOCKER_BASE_IMAGE = python:{{ cookiecutter.python_version }}
+
+DOCKER_PS_ARGS = -s
+DOCKER_WORK_DIR = /var/app
 
 {%- if cookiecutter.enable_sphinx == 'true' %}
 
@@ -105,6 +127,52 @@ $(VENV_DIR): requirements.txt requirements-test.txt
 .PHONY: venv
 # target: venv – Create the virtual environment
 venv: $(VENV_DIR)
+
+
+##
+# Docker.
+
+.PHONY: docker-info
+# target: docker-info - Display system-wide information
+docker-info:
+	@echo
+	@$(DOCKER) info
+	@echo
+
+.PHONY: docker-stats
+# target: docker-stats - Show all images and containers
+docker-stats:
+	@echo
+	@$(DOCKER) images -a
+	@echo
+	@$(DOCKER) ps -a
+	@echo
+
+.PHONY: docker-statsall
+# target: docker-statsall - Same as 'stats', but more details provided
+docker-statsall:
+	@echo
+	@$(DOCKER) images -a
+	@echo
+	@$(DOCKER) ps -a $(DOCKER_PS_ARGS)
+	@echo
+
+.PHONY: docker-clean
+# target: docker-clean – Clean dangling images
+docker-clean:
+	@$(DOCKER) rmi -f \
+		$(shell $(DOCKER) images -a | $(GREPTOOL) "<none>" | $(AWK) '{print $$3}') \
+	&>/dev/null || :
+
+.PHONY: docker-distclean
+# target: docker-distclean – Clean built containers
+docker-distclean:
+	@$(DOCKER) rm -f $(shell $(DOCKER) ps -aq) &>/dev/null || :
+
+.PHONY: docker-mostlyclean
+# target: docker-mostlyclean – Remove all unused images and built containers
+docker-mostlyclean: docker-distclean
+	@$(DOCKER) image prune -a
 
 
 ##
