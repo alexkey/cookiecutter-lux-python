@@ -118,6 +118,20 @@ endif
 ##
 # Virtual environment.
 
+.PHONY: requirements
+# target: requirements – Compile Pip requirements
+requirements:
+	if [[ ! -f requirements.txt ]]; then \
+		touch requirements.txt; \
+	fi
+	$(DOCKER) run -it --rm \
+		-v "$(CURDIR)/requirements.in:/requirements.in" \
+		-v "$(CURDIR)/requirements.txt:/requirements.txt" \
+	"$(DOCKER_BASE_IMAGE)" "$(SHELL)" -c \
+		'pip install pip-tools && CUSTOM_COMPILE_COMMAND="make requirements" \
+		pip-compile -o requirements.tmp /requirements.in && \
+		cat requirements.tmp > requirements.txt'
+
 $(VENV_DIR): requirements.txt requirements-test.txt
 	@$(VENV) -p {{ cookiecutter.python }} "$(VENV_DIR)"
 	@"$(VENV_DIR)/bin"/pip install -U setuptools pip
