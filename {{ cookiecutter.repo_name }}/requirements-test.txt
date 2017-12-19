@@ -1,3 +1,4 @@
+bpython
 ipdb
-ipython
-pytest
+pytest-repeat
+pytest-sugar
