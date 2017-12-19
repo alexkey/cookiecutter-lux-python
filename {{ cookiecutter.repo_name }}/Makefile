@@ -121,10 +121,10 @@ endif
 .PHONY: requirements
 # target: requirements – Compile Pip requirements
 requirements:
-	if [[ ! -f requirements.txt ]]; then \
+	@if [[ ! -f requirements.txt ]]; then \
 		touch requirements.txt; \
 	fi
-	$(DOCKER) run -it --rm \
+	@$(DOCKER) run -it --rm \
 		-v "$(CURDIR)/requirements.in:/requirements.in" \
 		-v "$(CURDIR)/requirements.txt:/requirements.txt" \
 	"$(DOCKER_BASE_IMAGE)" "$(SHELL)" -c \
