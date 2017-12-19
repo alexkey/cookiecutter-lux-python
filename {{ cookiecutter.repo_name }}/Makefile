@@ -334,4 +334,5 @@ mostlyclean: clean distclean
 		"$(CURDIR)/.vagrant" \
 {%- endif %}
 		"$(CURDIR)/.cache" \
+		"$(CURDIR)/.mypy_cache" \
 		"$(VENV_DIR)"
