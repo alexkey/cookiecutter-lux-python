@@ -259,29 +259,29 @@ pdf: doc
 ##
 # Vagrant.
 
-.PHONY: update
-# target: update - Update the machine that is in use in the current Vagrant environment
-update:
+.PHONY: vagrant-update
+# target: vagrant-update - Update the machine within current Vagrant environment
+vagrant-update:
 	@$(VAGRANT) box update
 
-.PHONY: up
-# target: up – Start and provision the Vagrant environment
-up:
+.PHONY: vagrant-up
+# target: vagrant-up – Start and provision the Vagrant environment
+vagrant-up:
 	@$(VAGRANT) up
 
-.PHONY: ssh
-# target: ssh – Connect to the machine via SSH as root
-ssh:
+.PHONY: vagrant-ssh
+# target: vagrant-ssh – Connect to the machine via SSH as root
+vagrant-ssh:
 	@$(VAGRANT) ssh -- -l root
 
-.PHONY: halt
-# target: halt – Stop the machine
-halt:
+.PHONY: vagrant-halt
+# target: vagrant-halt – Stop the machine
+vagrant-halt:
 	@$(VAGRANT) halt
 
-.PHONY: destroy
-# target: destroy – Stop and delete all traces of the machine
-destroy:
+.PHONY: vagrant-destroy
+# target: vagrant-destroy – Stop and delete all traces of the machine
+vagrant-destroy:
 	@$(VAGRANT) destroy
 {%- endif %}
 
