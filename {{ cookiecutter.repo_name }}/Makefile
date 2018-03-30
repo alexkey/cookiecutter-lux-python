@@ -38,17 +38,17 @@ ifeq ($(shell which ${SED}),)
 endif
 
 GREPTOOL = ack
-ifeq (,$(shell which ${GREPTOOL}))
+ifeq ($(shell which ${GREPTOOL}),)
     GREPTOOL = egrep
 endif
 
 AWK = awk
-ifeq (,$(shell which ${AWK}))
+ifeq ($(shell which ${AWK}),)
     tools += $(AWK)
 endif
 
 DOCKER = docker
-ifeq (,$(shell which ${DOCKER}))
+ifeq ($(shell which ${DOCKER}),)
     tools += $(DOCKER)
 endif
 
