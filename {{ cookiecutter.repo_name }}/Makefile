@@ -182,7 +182,7 @@ docker-build: distclean dist
 		--no-cache .
 
 .PHONY: docker-run
-# target: Run temporary container in an interactive mode
+# target: docker-run - Run temporary container in an interactive mode
 docker-run:
 	@$(DOCKER) run -it --rm -p "$(DOCKER_PORT):$(DOCKER_PORT)" \
 		"$(PACKAGE_NAME):$(PACKAGE_VERSION)"
