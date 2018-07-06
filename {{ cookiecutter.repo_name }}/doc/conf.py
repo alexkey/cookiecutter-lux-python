@@ -2,6 +2,7 @@
 {{ cookiecutter.shebang_coding }}
 #
 # {{ cookiecutter.name }} documentation build configuration file.
+import {{ cookiecutter.repo_name }}
 
 
 # -- General configuration ------------------------------------------------
@@ -27,9 +28,9 @@ author = '{{ cookiecutter.author_name | replace("'", "\'") }}'
 copyright = '{{ cookiecutter.year }}, {}'.format(author)
 
 # The short X.Y version.
-version = '{{ cookiecutter.version }}'
+version = {{ cookiecutter.repo_name }}.__version__
 # The full version, including alpha/beta/rc tags.
-release = '{{ cookiecutter.version }}'
+release = {{ cookiecutter.repo_name }}.__release__
 
 language = None
 
