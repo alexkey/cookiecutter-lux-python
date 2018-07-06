@@ -18,7 +18,7 @@ from setuptools.command.test import test as TestCommand
 import {{ cookiecutter.repo_name }}
 
 
-def _read(filename):
+def _read(filename: str) -> str:
     try:
         fp = open(join(op.dirname(__file__), filename))
         try:
@@ -29,11 +29,11 @@ def _read(filename):
         return str()
 
 
-def _read_requirements(filename):
+def _read_requirements(filename: str) -> List[str]:
     is_valid = lambda _: _ and not any(_.startswith(ch) for ch in ['#', '-'])
 
     data = getattr(types, 'UnicodeType', str)(_read(filename))
-    return list((_.strip() for _ in StringIO(data) if is_valid(_.strip())))
+    return list((_.strip() for _ in StringIO(data) if is_valid(_.strip())))  # type: ignore
 
 
 class PyTest(TestCommand):
@@ -119,7 +119,7 @@ setup_params = dict(
 )
 
 
-def main():
+def main() -> None:
     setup(**setup_params)
 
 
