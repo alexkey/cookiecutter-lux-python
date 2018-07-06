@@ -1,4 +1,4 @@
-bpython
 ipdb
-pytest-repeat
+mypy
+pylint
 pytest-sugar
