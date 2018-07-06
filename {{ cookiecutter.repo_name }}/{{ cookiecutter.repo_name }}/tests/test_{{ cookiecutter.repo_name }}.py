@@ -22,4 +22,4 @@ class Test{{ cookiecutter.class_name }}:
 
 
 if __name__ == '__main__':
-    pytest.main()
+    pytest.main(args=[__file__])
