@@ -8,6 +8,7 @@
 
 .cache
 .mypy_cache
+.pytest_cache
 .eggs
 .venv
 __pycache__
