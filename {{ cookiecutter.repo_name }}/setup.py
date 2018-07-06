@@ -52,13 +52,13 @@ class PyTest(TestCommand):
 
 
 setup_params = dict(
-    name="{{ cookiecutter.class_name }}",
+    name='{{ cookiecutter.class_name }}',
     version={{ cookiecutter.repo_name }}.__version__,
-    description="{{ cookiecutter.brief }}",
+    description='{{ cookiecutter.brief }}',
     long_description=dedent("""
         {{ cookiecutter.description | replace('\n', '\n        ') }}
         """).strip(),
-    author="{{ cookiecutter.author_name }}",
+    author='{{ cookiecutter.author_name }}',
     author_email='{{ cookiecutter.author_email }}',
     url='{{ cookiecutter.url }}',
 
