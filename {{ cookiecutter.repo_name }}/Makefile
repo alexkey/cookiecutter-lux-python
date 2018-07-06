@@ -322,6 +322,10 @@ clean:
 	@find "$(CURDIR)" \
 		-name "*.py[cod]" -exec rm -fv {} + -o \
 		-name __pycache__ -exec rm -rfv {} +
+	@rm -rfv \
+		"$(CURDIR)/.cache" \
+		"$(CURDIR)/.mypy_cache" \
+		"$(CURDIR)/.pytest_cache"
 
 .PHONY: distclean
 # target: distclean – Clean the project's build output
@@ -350,6 +354,4 @@ mostlyclean: clean distclean
 {%- if cookiecutter.enable_vagrant == 'true' %}
 		"$(CURDIR)/.vagrant" \
 {%- endif %}
-		"$(CURDIR)/.cache" \
-		"$(CURDIR)/.mypy_cache" \
 		"$(VENV_DIR)"
