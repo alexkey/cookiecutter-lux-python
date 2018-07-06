@@ -203,6 +203,7 @@ docker-distclean:
 # target: docker-mostlyclean – Remove all unused images and built containers
 docker-mostlyclean: docker-distclean
 	@$(DOCKER) image prune -a
+	@$(DOCKER) volume prune -f
 
 
 ##
