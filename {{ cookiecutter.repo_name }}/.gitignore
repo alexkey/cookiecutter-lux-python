@@ -13,6 +13,7 @@
 .venv
 __pycache__
 build
+doc/_build
 dist
 
 *.py[cod]
