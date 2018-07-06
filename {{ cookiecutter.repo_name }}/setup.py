@@ -7,12 +7,13 @@ import types
 from io import StringIO
 from os import path as op
 from os.path import join
+from textwrap import dedent
+
 from setuptools import (
-    setup,
     find_packages,
+    setup,
 )
 from setuptools.command.test import test as TestCommand
-from textwrap import dedent
 
 import {{ cookiecutter.repo_name }}
 
