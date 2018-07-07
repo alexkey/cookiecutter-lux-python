@@ -155,6 +155,7 @@ Makefile Targets and Features
 
 
 .. _Cookiecutter: https://github.com/audreyr/cookiecutter/
+.. _MacTex: https://tug.org/mactex/mactex-download.html
 .. _PyTest: https://docs.pytest.org/en/latest/
 .. _Sphinx: http://www.sphinx-doc.org/
 .. _Vagrant: https://www.vagrantup.com/
