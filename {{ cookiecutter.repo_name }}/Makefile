@@ -166,7 +166,7 @@ docker-stats:
 	@echo
 
 .PHONY: docker-statsall
-# target: docker-statsall - Same as 'stats', but more details provided
+# target: docker-statsall - Same as `stats`, but more details provided
 docker-statsall:
 	@echo
 	@$(DOCKER) images -a
@@ -200,7 +200,7 @@ docker-distclean:
 	@$(DOCKER) rm -f $(shell $(DOCKER) ps -aq) &>/dev/null || :
 
 .PHONY: docker-mostlyclean
-# target: docker-mostlyclean – Remove all unused images and built containers
+# target: docker-mostlyclean – Remove all unused images, built containers and volumes
 docker-mostlyclean: docker-distclean
 	@$(DOCKER) image prune -a
 	@$(DOCKER) volume prune -f
