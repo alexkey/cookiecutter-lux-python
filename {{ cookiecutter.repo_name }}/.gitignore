@@ -13,6 +13,7 @@
 .venv
 __pycache__
 build
+doc/autodoc
 doc/_build
 dist
 
