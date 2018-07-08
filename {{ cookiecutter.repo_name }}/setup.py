@@ -8,6 +8,7 @@ from io import StringIO
 from os import path as op
 from os.path import join
 from textwrap import dedent
+from typing import List
 
 from setuptools import (
     find_packages,
