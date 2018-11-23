@@ -34,7 +34,7 @@ def _read_requirements(filename: str) -> List[str]:
     is_valid = lambda _: _ and not any(_.startswith(ch) for ch in ['#', '-'])
 
     data = getattr(types, 'UnicodeType', str)(_read(filename))
-    return list((_.strip() for _ in StringIO(data) if is_valid(_.strip())))  # type: ignore
+    return list(_.strip() for _ in StringIO(data) if is_valid(_.strip()))  # type: ignore
 
 
 class PyTest(TestCommand):
