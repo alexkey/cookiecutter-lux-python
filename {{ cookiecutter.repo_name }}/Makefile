@@ -75,8 +75,6 @@ PYTHON_VERSION = {{ cookiecutter.python_version }}
 DOCKER_BASE_IMAGE = python:$(PYTHON_VERSION)
 
 DOCKER_PS_ARGS = -s
-DOCKER_WORK_DIR = /var/app
-
 DOCKER_WORK_DIR = /usr/local/lib/python$(PYTHON_VERSION)/site-packages/$(PACKAGE_NAME)
 
 DOCKER_PORT = 8088
