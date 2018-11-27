@@ -1,7 +1,7 @@
 {{ cookiecutter.shebang_python }}
 {{ cookiecutter.shebang_coding }}
 
-def main():
+def main() -> None:
     pass
 
 
