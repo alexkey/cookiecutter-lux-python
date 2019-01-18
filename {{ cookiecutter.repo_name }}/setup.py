@@ -38,15 +38,19 @@ def _read_requirements(filename: str) -> List[str]:
 
 
 class PyTest(TestCommand):
+# pylint: disable=attribute-defined-outside-init
     user_options = [('pytest-args=', 'a', "Arguments to pass to pytest")]
 
     def initialize_options(self) -> None:
         super().initialize_options()
-        self.pytest_args = []
+        self.pytest_args: List[str] = list()
 
     def run_tests(self) -> None:
         # Import here, cause outside the eggs aren't loaded.
         import pytest
+
+        if isinstance(self.pytest_args, str):
+            self.pytest_args = self.pytest_args.split()
 
         errno = pytest.main(args=self.pytest_args)
         sys.exit(errno)
