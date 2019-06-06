@@ -111,16 +111,16 @@ endif
 
 
 ##
-# All.
+# All
 
 all: help
 ifdef tools
-	$(error "Can't find tools:${tools}")
+	$(error Can't find tools:${tools})
 endif
 
 
 ##
-# Virtual environment.
+# Virtual environment
 
 .PHONY: requirements
 # target: requirements – Compile Pip requirements
@@ -137,7 +137,7 @@ requirements:
 		cat requirements.tmp > requirements.txt'
 
 $(VENV_DIR): requirements.txt requirements-test.txt
-	@$(VENV) -p {{ cookiecutter.python }} "$(VENV_DIR)"
+	@$(VENV) -p "python$(PYTHON_VERSION)" "$(VENV_DIR)"
 	@"$(VENV_DIR)/bin"/pip install -U setuptools pip
 	@"$(VENV_DIR)/bin"/pip install -Ur $<
 	@"$(VENV_DIR)/bin"/pip install -Ur $(word 2,$^)
@@ -148,7 +148,7 @@ venv: $(VENV_DIR)
 
 
 ##
-# Docker.
+# Docker
 
 .PHONY: docker-info
 # target: docker-info - Display system-wide information
@@ -208,7 +208,7 @@ docker-mostlyclean: docker-distclean
 
 
 ##
-# Building and packaging.
+# Building and packaging
 
 .PHONY: dist
 # target: dist – Create a binary (wheel) distribution
@@ -234,7 +234,7 @@ uninstall:
 
 
 ##
-# Testing.
+# Testing
 
 .PHONY: check
 # target: check – Run tests
@@ -245,12 +245,12 @@ check:
 
 
 ##
-# Documentation.
+# Documentation
 
 .PHONY: doc
 doc:
 ifdef doctools
-	$(error "Can't find tools:${doctools}")
+	$(error Can't find tools:${doctools})
 endif
 
 .PHONY: apidoc
@@ -275,7 +275,7 @@ pdf: doc
 
 
 ##
-# Vagrant.
+# Vagrant
 
 .PHONY: vagrant-update
 # target: vagrant-update - Update the machine within current Vagrant environment
@@ -305,7 +305,7 @@ vagrant-destroy:
 
 
 ##
-# Auxiliary targets.
+# Auxiliary targets
 
 .PHONY: help
 # target: help – Display all callable targets
