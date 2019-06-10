@@ -123,7 +123,7 @@ endif
 # Virtual environment
 
 .PHONY: requirements
-# target: requirements – Compile Pip requirements
+# target: requirements - Compile Pip requirements
 requirements:
 	@if [[ ! -f requirements.txt ]]; then \
 		touch requirements.txt; \
@@ -143,7 +143,7 @@ $(VENV_DIR): requirements.txt requirements-test.txt
 	@"$(VENV_DIR)/bin"/pip install -Ur $(word 2,$^)
 
 .PHONY: venv
-# target: venv – Create the virtual environment
+# target: venv - Create the virtual environment
 venv: $(VENV_DIR)
 
 
@@ -189,19 +189,19 @@ docker-run:
 		"$(PACKAGE_NAME):$(PACKAGE_VERSION)"
 
 .PHONY: docker-clean
-# target: docker-clean – Clean dangling images
+# target: docker-clean - Clean dangling images
 docker-clean:
 	@$(DOCKER) rmi -f \
 		$(shell $(DOCKER) images -a | $(GREPTOOL) "<none>" | $(AWK) '{print $$3}') \
 	&>/dev/null || :
 
 .PHONY: docker-distclean
-# target: docker-distclean – Clean built containers
+# target: docker-distclean - Clean built containers
 docker-distclean:
 	@$(DOCKER) rm -f $(shell $(DOCKER) ps -aq) &>/dev/null || :
 
 .PHONY: docker-mostlyclean
-# target: docker-mostlyclean – Remove all unused images, built containers and volumes
+# target: docker-mostlyclean - Remove all unused images, built containers and volumes
 docker-mostlyclean: docker-distclean
 	@$(DOCKER) image prune -a
 	@$(DOCKER) volume prune -f
@@ -211,24 +211,24 @@ docker-mostlyclean: docker-distclean
 # Building and packaging
 
 .PHONY: dist
-# target: dist – Create a binary (wheel) distribution
+# target: dist - Create a binary (wheel) distribution
 dist:
 	@[ ! -f "$(distdir)"/*.whl ]
 	@python setup.py bdist_wheel
 
 .PHONY: sdist
-# target: sdist – Create a source distribution
+# target: sdist - Create a source distribution
 sdist:
 	@[ ! -f "$(distdir)"/*.tar.gz ]
 	@python setup.py sdist
 
 .PHONY: install
-# target: install – Install project sources in "development mode"
+# target: install - Install project sources in "development mode"
 install:
 	@python setup.py develop
 
 .PHONY: uninstall
-# target: uninstall – Uninstall project sources
+# target: uninstall - Uninstall project sources
 uninstall:
 	@python setup.py develop --uninstall
 
@@ -237,7 +237,7 @@ uninstall:
 # Testing
 
 .PHONY: check
-# target: check – Run tests
+# target: check - Run tests
 check:
 	@python setup.py test -a "-vv"
 
@@ -260,12 +260,12 @@ apidoc: doc
 		$(foreach module,$(AUTODOC_EXCLUDE_MODULES),$(PACKAGE_NAME)/$(module))
 
 .PHONY: html
-# target: html – Render standalone HTML files
+# target: html - Render standalone HTML files
 html: doc
 	@$(SPHINX) -b html $(SPHINX_OPTS) "$(SPHINX_BUILDDIR)/html"
 
 .PHONY: pdf
-# target: pdf – Generate LaTeX files and run them through pdflatex
+# target: pdf - Generate LaTeX files and run them through pdflatex
 pdf: doc
 	@$(SPHINX) -b latex $(SPHINX_OPTS) "$(SPHINX_BUILDDIR)/latex" && \
 		$(MAKE) -C "$(SPHINX_BUILDDIR)/latex" all-pdf
@@ -283,22 +283,22 @@ vagrant-update:
 	@$(VAGRANT) box update
 
 .PHONY: vagrant-up
-# target: vagrant-up – Start and provision the Vagrant environment
+# target: vagrant-up - Start and provision the Vagrant environment
 vagrant-up:
 	@$(VAGRANT) up
 
 .PHONY: vagrant-ssh
-# target: vagrant-ssh – Connect to the machine via SSH as root
+# target: vagrant-ssh - Connect to the machine via SSH as root
 vagrant-ssh:
 	@$(VAGRANT) ssh -- -l root
 
 .PHONY: vagrant-halt
-# target: vagrant-halt – Stop the machine
+# target: vagrant-halt - Stop the machine
 vagrant-halt:
 	@$(VAGRANT) halt
 
 .PHONY: vagrant-destroy
-# target: vagrant-destroy – Stop and delete all traces of the machine
+# target: vagrant-destroy - Stop and delete all traces of the machine
 vagrant-destroy:
 	@$(VAGRANT) destroy
 {%- endif %}
@@ -308,7 +308,7 @@ vagrant-destroy:
 # Auxiliary targets
 
 .PHONY: help
-# target: help – Display all callable targets
+# target: help - Display all callable targets
 help:
 	@echo
 	@egrep "^\s*#\s*target\s*:\s*" [Mm]akefile \
@@ -318,7 +318,7 @@ help:
 ## Cleaners.
 
 .PHONY: clean
-# target: clean – Clean the project's directrory
+# target: clean - Clean the project's directrory
 clean:
 	@find "$(CURDIR)" \
 		-name "*.py[cod]" -exec rm -fv {} + -o \
@@ -329,7 +329,7 @@ clean:
 		"$(CURDIR)/.pytest_cache"
 
 .PHONY: distclean
-# target: distclean – Clean the project's build output
+# target: distclean - Clean the project's build output
 distclean:
 	@find "$(CURDIR)" -path "$(VENV_DIR)" -prune -o \
 		-name "*.egg-info" -exec rm -rfv {} + -o \
@@ -347,7 +347,7 @@ distclean:
 {%- endif %}
 
 .PHONY: mostlyclean
-# target: mostlyclean – Delete almost everything
+# target: mostlyclean - Delete almost everything
 mostlyclean: clean distclean
 	@find "$(CURDIR)" -name .DS_Store -exec rm -fv {} +
 
