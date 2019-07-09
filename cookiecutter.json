@@ -9,7 +9,7 @@
     "author_email": "waldo@example.com",
     "url": "https://waldo.example.com",
     "license": "BSD3",
-    "year": "2018",
+    "year": "2019",
 
     "python_version": "3.7",
     "python": "python{{ cookiecutter.python_version }}",
@@ -19,9 +19,9 @@
 
     "shebang_coding": "# -*- coding: utf-8 -*-",
     "shebang_shell": "#!/bin/bash",
-    "shebang_python": "#!/usr/bin/env python{{ cookiecutter.python_version }}",
+    "shebang_python": "#!/usr/bin/env python{{ cookiecutter.python_version[0] }}",
 
-    "enable_vagrant": "true",
+    "enable_vagrant": "false",
     "vagrant_name": "Foo",
     "vagrant_box": "ubuntu/xenial64",
     "vagrant_hostname": "foo",
