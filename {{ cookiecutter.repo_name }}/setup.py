@@ -1,5 +1,4 @@
 {{ cookiecutter.shebang_python }}
-{{ cookiecutter.shebang_coding }}
 
 import sys
 import types
@@ -16,7 +15,7 @@ from setuptools import (
 )
 from setuptools.command.test import test as TestCommand
 
-import {{ cookiecutter.repo_name }}
+import {{ cookiecutter.repo_name }} as root
 
 
 def _read(filename: str) -> str:
@@ -26,8 +25,8 @@ def _read(filename: str) -> str:
             return fp.read()
         finally:
             fp.close()
-    except (IOError, OSError):  # IOError/2.7, OSError/3.5
-        return str()
+    except OSError:
+        return ''
 
 
 def _read_requirements(filename: str) -> List[str]:
@@ -39,11 +38,12 @@ def _read_requirements(filename: str) -> List[str]:
 
 class PyTest(TestCommand):
 # pylint: disable=attribute-defined-outside-init
-    user_options = [('pytest-args=', 'a', "Arguments to pass to pytest")]
+#
+    user_options = [('pytest-args=', 'a', "arguments to pass to the Pytest")]
 
     def initialize_options(self) -> None:
         super().initialize_options()
-        self.pytest_args: List[str] = list()
+        self.pytest_args: List[str] = []
 
     def run_tests(self) -> None:
         # Import here, cause outside the eggs aren't loaded.
@@ -58,7 +58,7 @@ class PyTest(TestCommand):
 
 setup_params = dict(
     name='{{ cookiecutter.class_name }}',
-    version={{ cookiecutter.repo_name }}.__version__,
+    version=root.__version__,
     description='{{ cookiecutter.brief }}',
     long_description=dedent("""
         {{ cookiecutter.description | replace('\n', '\n        ') }}
@@ -87,7 +87,7 @@ setup_params = dict(
     #     # of the `mypkg` package, also:
     #     'mypkg': ['data/*.dat'],
     # },
-    # # ...but exclude README.txt from all packages
+    # # But exclude `README.txt` from all packages:
     # exclude_package_data={'': ['README.txt']},
     # data_files=[
     #     ('bitmaps', ['bm/b1.gif', 'bm/b2.gif']),
@@ -98,12 +98,12 @@ setup_params = dict(
 
     # entry_points={
     #     'console_scripts': [
-    #         'foo = {{ cookiecutter.repo_name }}.some_module:main_func',
+    #         'foo = root.some_module:main_func',
     #         'bar = other_module:some_func',
     #     ],
     #     'gui_scripts': [
     #         'baz = my_package_gui:start_func',
-    #     ]
+    #     ],
     # },
 
     install_requires=_read_requirements('requirements.txt'),

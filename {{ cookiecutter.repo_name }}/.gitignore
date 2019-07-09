@@ -13,9 +13,9 @@
 .venv
 __pycache__
 build
+dist
 doc/autodoc
 doc/_build
-dist
 
 *.py[cod]
 *.egg-info

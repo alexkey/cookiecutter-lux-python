@@ -3,7 +3,7 @@
     "repo_name": "{{ cookiecutter.name | lower | replace(' ', '_') | replace('.', '_') }}",
     "class_name": "{{ cookiecutter.repo_name | replace('_', ' ') | title | replace(' ', '') }}",
     "brief": "Python package skeleton.",
-    "description": "The boilerplate Python project that aims to create facility for maintaining of\nthe package easily. It considering tools for building, testing and distribution.",
+    "description": "The boilerplate Python project that aims to create facility for maintaining of the package\neasily. It considering tools for building, testing and distribution.",
     "version": "0.1.0",
     "author_name": "Waldo Garply",
     "author_email": "waldo@example.com",

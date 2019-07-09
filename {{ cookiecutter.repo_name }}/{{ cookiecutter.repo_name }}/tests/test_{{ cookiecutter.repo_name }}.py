@@ -1,10 +1,9 @@
 {{ cookiecutter.shebang_python }}
-{{ cookiecutter.shebang_coding }}
 
 import pytest
 
 from {{ cookiecutter.repo_name }} import *
-from {{ cookiecutter.repo_name }}.tests.test_{{ cookiecutter.repo_name }} import *
+from {{ cookiecutter.repo_name }}.tests import *
 
 
 class Test{{ cookiecutter.class_name }}:

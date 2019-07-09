@@ -1,7 +1,7 @@
 SHELL = /bin/bash
 
 ##
-# Definitions.
+# Definitions
 
 .SUFFIXES:
 

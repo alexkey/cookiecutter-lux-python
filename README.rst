@@ -4,25 +4,25 @@ cookiecutter-lux-python
 
 Cookiecutter_ template for a Python package.
 
-The boilerplate Python project that aims to create facility for maintaining of
-the package easily. It considering tools for building, testing and distribution.
+The boilerplate Python project that aims to create facility for maintaining of the package
+easily. It considering tools for building, testing and distribution.
 
 
 Get Started
 -----------
 
-This template provides a basic structure for an idiomatic Python package with a
-convenient Makefile-facility and additional helpers.
+This template provides a basic structure for an idiomatic Python package with a convenient
+Makefile-facility and additional helpers.
 
-Template can be configured using Cookiecutter_'s CLI or by altering parameters
-directly in `<cookiecutter.json>`_.
+Template can be configured using Cookiecutter_'s CLI or by altering parameters directly in
+`<cookiecutter.json>`_.
 
 
 Requirements
 ------------
 
-There are a couple of tools for building, packaging, documentation and so on,
-that must be installed.
+There are a couple of tools for building, packaging, documentation and so on, that must be
+installed.
 
 Main tools are:
 
@@ -44,8 +44,8 @@ Tools for documenting the package:
 
 * *Sphinx* package (sphinx-build, sphinx-apidoc),
 
-* MacTeX_ distribution (optionally; pdflatex CLI tool, fonts, styles – for
-  rendering docs in PDF format).
+* MacTeX_ distribution (optionally; pdflatex CLI tool, fonts, styles – for rendering docs in
+  PDF format).
 
 To check availability of documentation tools type ``make doc``.
 
@@ -62,8 +62,8 @@ Makefile Targets and Features
 
     make venv
 
-* Installing package into a virtual environment in so-called "development mode"
-  and removing it later::
+* Installing package into a virtual environment in so-called "development mode" and removing it
+  later::
 
     # after `make venv`
 
@@ -82,7 +82,7 @@ Makefile Targets and Features
     # Binary wheel distribution
     make dist
 
-    # Build tarball with sources (source distribution)
+    # Source distribution (tarball with sources)
     make sdist
 
 * Local docker statistics::
