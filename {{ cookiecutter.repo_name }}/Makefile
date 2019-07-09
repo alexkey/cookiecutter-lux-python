@@ -311,7 +311,7 @@ vagrant-destroy:
 # target: help - Display all callable targets
 help:
 	@echo
-	@egrep "^\s*#\s*target\s*:\s*" [Mm]akefile \
+	@$(GREPTOOL) "^\s*#\s*target\s*:\s*" [Mm]akefile \
 	| $(SED) -r "s/^\s*#\s*target\s*:\s*//g"
 	@echo
 
