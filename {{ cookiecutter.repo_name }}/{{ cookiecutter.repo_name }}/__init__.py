@@ -27,5 +27,5 @@ CONFIG_TYPE = Optional[Dict[str, Any]]
 ARGS: Optional[argparse.Namespace] = None
 CONFIG: CONFIG_TYPE = None
 
-LOG_FMT = '%(levelname)s: %(name)s [%(process)d] {%(filename)s@L%(lineno)d}: %(message)s'
+{% raw %}LOG_FMT = '%(levelname)s: %(name)s [%(process)d] {%(filename)s@L%(lineno)d}: %(message)s'{% endraw %}
 LOG_LVL = logging.INFO
