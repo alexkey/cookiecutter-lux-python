@@ -98,7 +98,7 @@ setup_params = dict(
 
     # entry_points={
     #     'console_scripts': [
-    #         'foo = root.some_module:main_func',
+    #         'foo = {{ cookiecutter.repo_name }}.some_module:main_func',
     #         'bar = other_module:some_func',
     #     ],
     #     'gui_scripts': [
