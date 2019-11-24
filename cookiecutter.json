@@ -11,7 +11,7 @@
     "license": "BSD3",
     "year": "2019",
 
-    "python_version": "3.7",
+    "python_version": "3.8",
     "python": "python{{ cookiecutter.python_version }}",
     "pip_list_format": "columns",
     "virtualenv_dir_name": ".venv",
