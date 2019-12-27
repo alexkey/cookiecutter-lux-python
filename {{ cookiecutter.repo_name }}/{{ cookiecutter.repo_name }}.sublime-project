@@ -16,6 +16,5 @@
         "SublimeLinter.linters.mypy.executable": "$project_path/{{ cookiecutter.virtualenv_dir_name }}/bin/mypy",
         "SublimeLinter.linters.mypy.cache-dir": "$project_path/.mypy_cache",
         "SublimeLinter.linters.mypy.config-file": "$project_path/mypy.ini",
-        "SublimeLinter.linters.mypy.follow-imports": "silent",
     }
 }
