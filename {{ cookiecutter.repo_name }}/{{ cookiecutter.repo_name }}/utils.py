@@ -7,8 +7,7 @@ import toml
 import {{ cookiecutter.repo_name }} as root
 
 
-logging.basicConfig(format=root.LOG_FMT, level=root.LOG_LVL)
-log = logging.getLogger(__name__)
+_log = logging.getLogger(__name__)
 
 
 class CustomHelpFormatter(argparse.HelpFormatter):
@@ -44,9 +43,9 @@ def parse_config(file: str) -> root.CONFIG_TYPE:
         try:
             return toml.load(file)
         except IndexError:
-            log.error('Unable to load TOML')
+            _log.error('Unable to load TOML')
         except toml.TomlDecodeError:
-            log.error('Unable to decode TOML')
+            _log.error('Unable to decode TOML')
         return None
     else:
         raise FileNotFoundError(file)
