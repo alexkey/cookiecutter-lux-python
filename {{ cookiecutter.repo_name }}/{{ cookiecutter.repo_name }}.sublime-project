@@ -11,7 +11,7 @@
         "python_package_paths": [],
 
         "SublimeLinter.linters.pylint.executable": "$project_path/{{ cookiecutter.virtualenv_dir_name }}/bin/pylint",
-        "SublimeLinter.linters.pylint.paths": ["$project_path/{{ cookiecutter.virtualenv_dir_name }}/lib/{{ cookiecutter.python }}/site-packages"],
+        "SublimeLinter.linters.pylint.paths": ["$project_path/{{ cookiecutter.virtualenv_dir_name }}/lib/python{{ cookiecutter.python_version[:3] }}/site-packages"],
 
         "SublimeLinter.linters.mypy.executable": "$project_path/{{ cookiecutter.virtualenv_dir_name }}/bin/mypy",
         "SublimeLinter.linters.mypy.cache-dir": "$project_path/.mypy_cache",
