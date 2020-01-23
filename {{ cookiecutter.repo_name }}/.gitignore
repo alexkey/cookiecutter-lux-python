@@ -1,22 +1,19 @@
-{%- if cookiecutter.enable_vagrant == 'true' %}.vagrant
-{% endif -%}
 .DS_Store
 
-*~
-*.log
-*.sublime-workspace
-
 .cache
+.eggs
 .mypy_cache
 .pytest_cache
-.eggs
 .venv
 __pycache__
 build
 dist
-doc/autodoc
 doc/_build
+doc/autodoc
 
-*.py[cod]
-*.egg-info
 *.dist-info
+*.egg-info
+*.log
+*.py[cod]
+*.sublime-workspace
+*~
