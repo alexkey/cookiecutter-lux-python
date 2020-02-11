@@ -171,21 +171,25 @@ venv: $(VENV_DIR)
 .PHONY: sdist
 # target: sdist - Create a source distribution
 sdist:
+	@echo
 	@[[ ! -f "$(distdir)"/*.tar.gz ]] && $(PYTHON) setup.py sdist
 
 .PHONY: dist
 # target: dist - Create a binary (wheel) distribution
 dist:
+	@echo
 	@[[ ! -f "$(distdir)"/*.whl ]] && $(PYTHON) setup.py bdist_wheel
 
 .PHONY: install
 # target: install - Install project sources in "development mode"
 install:
+	@echo
 	@$(PYTHON) setup.py develop
 
 .PHONY: uninstall
 # target: uninstall - Uninstall project sources
 uninstall:
+	@echo
 	@$(PYTHON) setup.py develop --uninstall
 
 
