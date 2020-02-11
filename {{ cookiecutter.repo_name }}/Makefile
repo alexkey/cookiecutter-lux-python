@@ -147,7 +147,7 @@ $(VENV_DIR): requirements.txt requirements-test.txt
 	@$(PYTHON) -m venv "$(VENV_DIR)";
 	@if [[ -d "$(VENV_DIR)" ]]; then \
 		\
-		source "$${path}/bin/activate"; \
+		source "$(VENV_DIR)/bin/activate"; \
 		\
 			$(PIP) install -U pip setuptools; \
 			$(PIP) install -Ur $<; \
