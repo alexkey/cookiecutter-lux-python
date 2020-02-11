@@ -63,7 +63,7 @@ setup_params = dict(
 
     entry_points={
         'console_scripts': []
-    }
+    },
 
     install_requires=read_requirements('requirements.txt'),
     extras_require = {},
