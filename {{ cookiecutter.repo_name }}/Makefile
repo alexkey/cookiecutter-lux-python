@@ -195,7 +195,7 @@ uninstall:
 .PHONY: check
 # target: check - Run tests
 check:
-	@if [[ -n "$(shell which ${TESTTOOL})" ]]; then
+	@if [[ -n "$(shell which ${TESTTOOL})" ]]; then \
 		$(TESTTOOL) "$(srcdir)"; \
 	else \
 		echo -n "ERROR: \`$(TESTTOOL)\` binary is missing"; \
