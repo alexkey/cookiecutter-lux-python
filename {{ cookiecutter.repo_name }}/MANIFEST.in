@@ -1,22 +1,14 @@
 include AUTHORS.rst
 include CONTRIBUTING.rst
 include Changelog
-include Dockerfile
 include LICENSE
 include MANIFEST.in
-include Makefile
 include README.rst
-include mypy.ini
 include requirements-test.txt
 include requirements.txt
 include setup.cfg
 
-recursive-include doc *.rst *.py
+recursive-include doc *.py *.rst
 
-global-exclude __pycache__ *.py[cod]
-
-{%- if cookiecutter.enable_vagrant == 'true' %}
-
-prune .vagrant
-{%- endif %}
 prune .venv
+global-exclude __pycache__ *.py[cod]
