@@ -1,9 +1,16 @@
 SHELL = /bin/bash
 
+
 ##
 # Definitions
 
-.SUFFIXES:
+### Error codes
+
+ERROR_PYTHON_VERSION = 10
+ERROR_PYTHON_TESTTOOL = 20
+
+
+### Main defs
 
 PACKAGE_NAME = {{ cookiecutter.repo_name }}
 PACKAGE_VERSION = {{ cookiecutter.version }}
@@ -16,14 +23,8 @@ docdir = $(CURDIR)/doc
 autodocdir = $(docdir)/autodoc
 {%- endif %}
 
-## OS specifics.
 
-ifneq ($(shell which lsb_release),)
-	OS_ID = $(shell lsb_release -is)
-	OS_CODENAME = $(shell lsb_release -cs)
-endif
-
-## Tools.
+### Tools
 
 tools =
 
@@ -37,7 +38,7 @@ ifeq ($(shell which ${SED}),)
 	tools += $(SED)
 endif
 
-GREPTOOL = ack
+GREPTOOL = rg
 ifeq ($(shell which ${GREPTOOL}),)
     GREPTOOL = egrep
 endif
@@ -47,41 +48,45 @@ ifeq ($(shell which ${AWK}),)
     tools += $(AWK)
 endif
 
+
+### Python
+
+PYTHON = python3
+PYTHON_BIN = $(shell which ${PYTHON})
+ifeq ($(PYTHON_BIN),)
+	tools += $(PYTHON)
+endif
+
+PIP = $(PYTHON) -m pip
+
+PYTHON3_VER = {{ cookiecutter.python_version }}
+PYTHON_VERSION_INFO = $(shell ${PYTHON} -c 'if 1: \
+	from sys import version_info; \
+	print("{v.major}.{v.minor}.{v.micro}".format(v=version_info)) \
+	')
+PYTHON_INFO = $(PYTHON_BIN) -> $(PYTHON_VERSION_INFO)
+
+VENV_DIR = .venv
+
+TESTTOOL = pytest
+
+
+### Docker
+
 DOCKER = docker
 ifeq ($(shell which ${DOCKER}),)
     tools += $(DOCKER)
 endif
 
-{%- if cookiecutter.enable_vagrant == 'true' %}
-
-VAGRANT = vagrant
-ifeq ($(shell which ${VAGRANT}),)
-	tools += $(VAGRANT)
-endif
-{%- endif %}
-
-## Virtual environment.
-
-VENV_DIR = $(CURDIR)/.venv
-
-VENV = virtualenv
-ifeq ($(shell which ${VENV}),)
-	tools += $(VENV)
-endif
-
-## Docker.
-
-PYTHON_VERSION = {{ cookiecutter.python_version }}
-DOCKER_BASE_IMAGE = python:$(PYTHON_VERSION)
-
 DOCKER_PS_ARGS = -s
-DOCKER_WORK_DIR = /usr/local/lib/python$(PYTHON_VERSION)/site-packages/$(PACKAGE_NAME)
 
+DOCKER_BASE_IMAGE = python:$(PYTHON3_VER)-slim-buster
 DOCKER_PORT = 8088
 
 {%- if cookiecutter.enable_sphinx == 'true' %}
 
-## Documentation.
+
+### Documentation
 
 doctools =
 
@@ -89,23 +94,18 @@ SPHINX_BUILDDIR = $(docdir)/_build
 SPHINX_STATIC = $(docdir)/_static
 SPHINX_TEMPLATES = $(docdir)/_templates
 
-SPHINX_OPTS = -d $(SPHINX_BUILDDIR)/doctrees $(CURDIR)/doc
+AUTODOC_EXCLUDE_MODULES =
 
 SPHINX = sphinx-build
 ifeq ($(shell which ${SPHINX}),)
 	doctools += $(SPHINX)
 endif
 
+SPHINX_OPTS = -d "$(SPHINX_BUILDDIR)/doctrees" "$(docdir)"
+
 SPHINX_APIDOC = sphinx-apidoc
 ifeq ($(shell which ${SPHINX_APIDOC}),)
 	doctools += $(SPHINX_APIDOC)
-endif
-
-AUTODOC_EXCLUDE_MODULES =
-
-PDFLATEX = pdflatex
-ifeq ($(shell which ${PDFLATEX}),)
-	doctools += $(PDFLATEX)
 endif
 {%- endif %}
 
@@ -117,6 +117,14 @@ all: help
 ifdef tools
 	$(error Can't find tools:${tools})
 endif
+	@if [[ "$(PYTHON_VERSION_INFO)" == "$(PYTHON3_VER)" ]]; then \
+		echo "INFO: Found Python interpreter: $(PYTHON_INFO)"; \
+	else \
+		echo -n "WARNING: Incompatible Python interpreter version: $(PYTHON_INFO) "; \
+		echo "(instead of $(PYTHON3_VER))"; \
+		echo "INFO: Try \`make python-install\`"; \
+		exit $(ERROR_PYTHON_VERSION); \
+	fi
 
 
 ##
@@ -125,26 +133,74 @@ endif
 .PHONY: requirements
 # target: requirements - Compile Pip requirements
 requirements:
-	@if [[ ! -f requirements.txt ]]; then \
-		touch requirements.txt; \
-	fi
 	@$(DOCKER) run -it --rm \
 		-v "$(CURDIR)/requirements.in:/requirements.in" \
 		-v "$(CURDIR)/requirements.txt:/requirements.txt" \
 	"$(DOCKER_BASE_IMAGE)" "$(SHELL)" -c \
-		'pip install pip-tools && CUSTOM_COMPILE_COMMAND="make requirements" \
-		pip-compile -o requirements.tmp /requirements.in && \
+		'pip install pip-tools && \
+		CUSTOM_COMPILE_COMMAND="make requirements" \
+			pip-compile -o requirements.tmp requirements.in && \
 		cat requirements.tmp > requirements.txt'
 
 $(VENV_DIR): requirements.txt requirements-test.txt
-	@$(VENV) -p "python$(PYTHON_VERSION)" "$(VENV_DIR)"
-	@"$(VENV_DIR)/bin"/pip install -U setuptools pip
-	@"$(VENV_DIR)/bin"/pip install -Ur $<
-	@"$(VENV_DIR)/bin"/pip install -Ur $(word 2,$^)
+	@echo
+	$(PYTHON) -m venv "$(VENV_DIR)";
+	@if [[ -d "$(VENV_DIR)" ]]; then \
+		\
+		source "$${path}/bin/activate"; \
+		\
+			$(PIP) install -U pip setuptools; \
+			$(PIP) install -Ur $<; \
+			$(PIP) install -Ur $(word 2,$^); \
+		\
+		echo ""; \
+		$(PIP) list; \
+		echo ""; \
+		\
+		deactivate; \
+	fi
 
 .PHONY: venv
 # target: venv - Create the virtual environment
 venv: $(VENV_DIR)
+
+
+##
+# Building and packaging
+
+.PHONY: sdist
+# target: sdist - Create a source distribution
+sdist:
+	@[[ ! -f "$(distdir)"/*.tar.gz ]] && $(PYTHON) setup.py sdist
+
+.PHONY: dist
+# target: dist - Create a binary (wheel) distribution
+dist:
+	@[[ ! -f "$(distdir)"/*.whl ]] && $(PYTHON) setup.py bdist_wheel
+
+.PHONY: install
+# target: install - Install project sources in "development mode"
+install:
+	@$(PYTHON) setup.py develop
+
+.PHONY: uninstall
+# target: uninstall - Uninstall project sources
+uninstall:
+	@$(PYTHON) setup.py develop --uninstall
+
+
+##
+# Testing
+
+.PHONY: check
+# target: check - Run tests
+check:
+	@if [[ -n "$(shell which ${TESTTOOL})" ]]; then
+		$(TESTTOOL) "$(srcdir)"; \
+	else \
+		echo -n "ERROR: \`$(TESTTOOL)\` binary is missing"; \
+		exit $(ERROR_PYTHON_TESTTOOL); \
+	fi
 
 
 ##
@@ -155,91 +211,38 @@ venv: $(VENV_DIR)
 docker-info:
 	@echo
 	@$(DOCKER) info
-	@echo
 
 .PHONY: docker-stats
-# target: docker-stats - Show all images and containers
+# target: docker-stats - Show all images, containers and volumes
 docker-stats:
-	@echo
-	@$(DOCKER) images -a
-	@echo
-	@$(DOCKER) ps -a
-	@echo
-
-.PHONY: docker-statsall
-# target: docker-statsall - Same as `stats`, but more details provided
-docker-statsall:
 	@echo
 	@$(DOCKER) images -a
 	@echo
 	@$(DOCKER) ps -a $(DOCKER_PS_ARGS)
 	@echo
+	@$(DOCKER) volume ls
+
+Dockerfile:
+	@$(DOCKER) build -f "$(CURDIR)/Dockerfile" -t $(PACKAGE_NAME):$(PACKAGE_VERSION) \
+		--no-cache .
 
 .PHONY: docker-build
 # target: docker-build - Build image from scratch
-docker-build: distclean dist
-	@$(DOCKER) build \
-		-f "$(CURDIR)/Dockerfile" -t "$(PACKAGE_NAME):$(PACKAGE_VERSION)" \
-		--no-cache .
+docker-build: Dockerfile
 
 .PHONY: docker-run
 # target: docker-run - Run temporary container in an interactive mode
 docker-run:
-	@$(DOCKER) run -it --rm -p "$(DOCKER_PORT):$(DOCKER_PORT)" \
-		"$(PACKAGE_NAME):$(PACKAGE_VERSION)"
+	@$(DOCKER) run -it --rm -p $(DOCKER_PORT):$(DOCKER_PORT) \
+		$(PACKAGE_NAME):$(PACKAGE_VERSION)
 
 .PHONY: docker-clean
-# target: docker-clean - Clean dangling images
+# target: docker-clean - Remove all unused images, built containers and volumes
 docker-clean:
-	@$(DOCKER) rmi -f \
-		$(shell $(DOCKER) images -a | $(GREPTOOL) "<none>" | $(AWK) '{print $$3}') \
-	&>/dev/null || :
-
-.PHONY: docker-distclean
-# target: docker-distclean - Clean built containers
-docker-distclean:
-	@$(DOCKER) rm -f $(shell $(DOCKER) ps -aq) &>/dev/null || :
-
-.PHONY: docker-mostlyclean
-# target: docker-mostlyclean - Remove all unused images, built containers and volumes
-docker-mostlyclean: docker-distclean
-	@$(DOCKER) image prune -a
+	@$(DOCKER) ps -aq | xargs $(DOCKER) rm -fv
+	@$(DOCKER) images -a | $(GREPTOOL) "<none>" | $(AWK) '{print $$3}' | xargs $(DOCKER) rmi -f
+	@$(DOCKER) image prune -af
 	@$(DOCKER) volume prune -f
-
-
-##
-# Building and packaging
-
-.PHONY: dist
-# target: dist - Create a binary (wheel) distribution
-dist:
-	@[ ! -f "$(distdir)"/*.whl ]
-	@python setup.py bdist_wheel
-
-.PHONY: sdist
-# target: sdist - Create a source distribution
-sdist:
-	@[ ! -f "$(distdir)"/*.tar.gz ]
-	@python setup.py sdist
-
-.PHONY: install
-# target: install - Install project sources in "development mode"
-install:
-	@python setup.py develop
-
-.PHONY: uninstall
-# target: uninstall - Uninstall project sources
-uninstall:
-	@python setup.py develop --uninstall
-
-
-##
-# Testing
-
-.PHONY: check
-# target: check - Run tests
-check:
-	@python setup.py test -a "-vv"
 
 {%- if cookiecutter.enable_sphinx == 'true' %}
 
@@ -263,44 +266,6 @@ apidoc: doc
 # target: html - Render standalone HTML files
 html: doc
 	@$(SPHINX) -b html $(SPHINX_OPTS) "$(SPHINX_BUILDDIR)/html"
-
-.PHONY: pdf
-# target: pdf - Generate LaTeX files and run them through pdflatex
-pdf: doc
-	@$(SPHINX) -b latex $(SPHINX_OPTS) "$(SPHINX_BUILDDIR)/latex" && \
-		$(MAKE) -C "$(SPHINX_BUILDDIR)/latex" all-pdf
-{%- endif %}
-
-{%- if cookiecutter.enable_vagrant == 'true' %}
-
-
-##
-# Vagrant
-
-.PHONY: vagrant-update
-# target: vagrant-update - Update the machine within current Vagrant environment
-vagrant-update:
-	@$(VAGRANT) box update
-
-.PHONY: vagrant-up
-# target: vagrant-up - Start and provision the Vagrant environment
-vagrant-up:
-	@$(VAGRANT) up
-
-.PHONY: vagrant-ssh
-# target: vagrant-ssh - Connect to the machine via SSH as root
-vagrant-ssh:
-	@$(VAGRANT) ssh -- -l root
-
-.PHONY: vagrant-halt
-# target: vagrant-halt - Stop the machine
-vagrant-halt:
-	@$(VAGRANT) halt
-
-.PHONY: vagrant-destroy
-# target: vagrant-destroy - Stop and delete all traces of the machine
-vagrant-destroy:
-	@$(VAGRANT) destroy
 {%- endif %}
 
 
@@ -313,46 +278,44 @@ help:
 	@echo
 	@$(GREPTOOL) "^\s*#\s*target\s*:\s*" [Mm]akefile \
 	| $(SED) -r "s/^\s*#\s*target\s*:\s*//g"
-	@echo
 
-## Cleaners.
+
+### Cleaners
 
 .PHONY: clean
 # target: clean - Clean the project's directrory
 clean:
-	@find "$(CURDIR)" \
-		-name "*.py[cod]" -exec rm -fv {} + -o \
-		-name __pycache__ -exec rm -rfv {} +
-	@rm -rfv \
-		"$(CURDIR)/.cache" \
-		"$(CURDIR)/.mypy_cache" \
-		"$(CURDIR)/.pytest_cache"
+    @find "$(CURDIR)" \
+        -name ".cache" -type d -exec rm -rfv {} + -o \
+        -name ".mypy_cache" -type d -exec rm -rf {} + -o \
+        -name ".pytest_cache" -type d -exec rm -rf {} + -o \
+        -name "__pycache__" -type d -exec rm -rf {} + -o \
+            \
+        -name "*.py[cod]" -exec rm -f {} +
 
 .PHONY: distclean
 # target: distclean - Clean the project's build output
 distclean:
-	@find "$(CURDIR)" -path "$(VENV_DIR)" -prune -o \
-		-name "*.egg-info" -exec rm -rfv {} + -o \
-		-name "*.dist-info" -exec rm -rfv {} +
+    @find "$(CURDIR)" -path "$(VENV_DIR)" -prune -o \
+    		\
+        -name ".eggs" -type d -exec rm -rf {} + -o \
+        -name "*.dist-info" -type d -exec rm -rf {} + -o \
+        -name "*.egg-info" -type d -exec rm -rf {} +
+    @rm -rf \
+    	"$(builddir)" \
+    	"$(distdir)"
 
-	@rm -rfv \
-		"$(CURDIR)/.eggs" \
-		"$(builddir)" \
-		"$(distdir)" \
 {%- if cookiecutter.enable_sphinx == 'true' %}
-		"$(SPHINX_BUILDDIR)" \
-		"$(SPHINX_STATIC)" \
-		"$(SPHINX_TEMPLATES)"
-	@rm -fv "$(docdir)/autodoc"/*.rst
+
+    @find "$(CURDIR)" -name "$(autodocdir)/*.rst" -exec rm -f {} +
+    @rm -rf \
+    	"$(SPHINX_BUILDDIR)" \
+    	"$(SPHINX_STATIC)" \
+    	"$(SPHINX_TEMPLATES)"
 {%- endif %}
 
 .PHONY: mostlyclean
 # target: mostlyclean - Delete almost everything
 mostlyclean: clean distclean
 	@find "$(CURDIR)" -name .DS_Store -exec rm -fv {} +
-
-	@rm -rfv \
-{%- if cookiecutter.enable_vagrant == 'true' %}
-		"$(CURDIR)/.vagrant" \
-{%- endif %}
-		"$(VENV_DIR)"
+	@rm -rf "$(VENV_DIR)"
