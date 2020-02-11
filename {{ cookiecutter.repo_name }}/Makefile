@@ -137,7 +137,7 @@ requirements:
 		-v "$(CURDIR)/requirements.in:/requirements.in" \
 		-v "$(CURDIR)/requirements.txt:/requirements.txt" \
 	"$(DOCKER_BASE_IMAGE)" "$(SHELL)" -c \
-		'pip install pip-tools && \
+		'pip install -U pip pip-tools && \
 		CUSTOM_COMPILE_COMMAND="make requirements" \
 			pip-compile -o requirements.tmp requirements.in && \
 		cat requirements.tmp > requirements.txt'
