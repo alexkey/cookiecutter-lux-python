@@ -68,6 +68,11 @@ PYTHON_INFO = $(PYTHON_BIN) -> $(PYTHON_VERSION_INFO)
 
 VENV_DIR = .venv
 
+PYTHON_STD_PKGS = \
+	pip \
+	setuptools \
+	wheel
+
 TESTTOOL = pytest
 
 
@@ -149,7 +154,7 @@ $(VENV_DIR): requirements.txt requirements-test.txt
 		\
 		source "$(VENV_DIR)/bin/activate"; \
 		\
-			$(PIP) install -U pip setuptools; \
+			$(PIP) install -U $(PYTHON_STD_PKGS); \
 			$(PIP) install -Ur $<; \
 			$(PIP) install -Ur $(word 2,$^); \
 		\
