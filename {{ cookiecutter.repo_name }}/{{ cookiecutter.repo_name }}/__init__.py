@@ -3,7 +3,7 @@ import logging
 
 from typing import (
     Any,
-    Dict,
+    MutableMapping,
     Optional,
 )
 
@@ -14,7 +14,7 @@ __release__ = __version__
 DEBUG = False
 
 # Type definitions ==>
-CONFIG_TYPE = Optional[Dict[str, Any]]
+CONFIG_TYPE = Optional[MutableMapping[str, Any]]
 # <==
 
 ARGS: Optional[argparse.Namespace] = None
