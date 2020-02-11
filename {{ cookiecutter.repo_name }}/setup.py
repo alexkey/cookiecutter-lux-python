@@ -66,7 +66,7 @@ setup_params = dict(
     },
 
     install_requires=read_requirements('requirements.txt'),
-    extras_require = {},
+    extras_require={},
     setup_requires=[
 {%- if cookiecutter.enable_sphinx == 'true' %}
         'sphinx',
