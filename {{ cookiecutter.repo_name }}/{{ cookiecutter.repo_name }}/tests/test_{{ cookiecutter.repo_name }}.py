@@ -2,9 +2,6 @@
 
 import pytest
 
-from {{ cookiecutter.repo_name }} import *
-from {{ cookiecutter.repo_name }}.tests import *
-
 
 class Test{{ cookiecutter.class_name }}:
 

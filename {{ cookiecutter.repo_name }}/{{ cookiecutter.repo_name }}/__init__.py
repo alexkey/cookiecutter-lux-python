@@ -8,13 +8,6 @@ from typing import (
 )
 
 
-__all__ = [
-    # 'foo',
-    # 'bar',
-    # 'baz',
-    # 'qux',
-]
-
 __version__ = '{{ cookiecutter.version }}'
 __release__ = __version__
 

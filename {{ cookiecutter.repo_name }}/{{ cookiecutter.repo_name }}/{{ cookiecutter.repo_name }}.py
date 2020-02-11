@@ -3,25 +3,17 @@
 import argparse
 import logging
 import sys
-
 from pathlib import Path
 
 import {{ cookiecutter.repo_name }} as root
-from {{ cookiecutter.repo_name }}.utils import (
-    CustomHelpFormatter,
-    parse_config,
-)
+from {{ cookiecutter.repo_name }}.utils import parse_config
 
-
-logging.basicConfig(format=root.LOG_FMT, level=root.LOG_LVL)
-log = logging.getLogger(__name__)
 
 ERROR_CONFIG = 1
 ERROR_CONFIG_PARSING = 2
 
 
 def parse_cmdline() -> argparse.Namespace:
-    parser = argparse.ArgumentParser(formatter_class=CustomHelpFormatter)
     parser = argparse.ArgumentParser(
         description=f'{{ cookiecutter.name }} {root.__version__}'
     )
@@ -33,6 +25,9 @@ def parse_cmdline() -> argparse.Namespace:
 
 
 def main() -> None:
+    logging.basicConfig(format=root.LOG_FMT, level=root.LOG_LVL)
+    log = logging.getLogger(__name__)
+
     root.ARGS = parse_cmdline()
 
     try:
