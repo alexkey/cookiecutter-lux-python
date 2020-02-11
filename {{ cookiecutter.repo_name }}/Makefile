@@ -40,12 +40,12 @@ endif
 
 GREPTOOL = rg
 ifeq ($(shell which ${GREPTOOL}),)
-    GREPTOOL = egrep
+	GREPTOOL = egrep
 endif
 
 AWK = awk
 ifeq ($(shell which ${AWK}),)
-    tools += $(AWK)
+	tools += $(AWK)
 endif
 
 
@@ -75,7 +75,7 @@ TESTTOOL = pytest
 
 DOCKER = docker
 ifeq ($(shell which ${DOCKER}),)
-    tools += $(DOCKER)
+	tools += $(DOCKER)
 endif
 
 DOCKER_PS_ARGS = -s
@@ -285,33 +285,33 @@ help:
 .PHONY: clean
 # target: clean - Clean the project's directrory
 clean:
-    @find "$(CURDIR)" \
-        -name ".cache" -type d -exec rm -rfv {} + -o \
-        -name ".mypy_cache" -type d -exec rm -rf {} + -o \
-        -name ".pytest_cache" -type d -exec rm -rf {} + -o \
-        -name "__pycache__" -type d -exec rm -rf {} + -o \
-            \
-        -name "*.py[cod]" -exec rm -f {} +
+	@find "$(CURDIR)" \
+		-name ".cache" -type d -exec rm -rfv {} + -o \
+		-name ".mypy_cache" -type d -exec rm -rf {} + -o \
+		-name ".pytest_cache" -type d -exec rm -rf {} + -o \
+		-name "__pycache__" -type d -exec rm -rf {} + -o \
+			\
+		-name "*.py[cod]" -exec rm -f {} +
 
 .PHONY: distclean
 # target: distclean - Clean the project's build output
 distclean:
-    @find "$(CURDIR)" -path "$(VENV_DIR)" -prune -o \
-    		\
-        -name ".eggs" -type d -exec rm -rf {} + -o \
-        -name "*.dist-info" -type d -exec rm -rf {} + -o \
-        -name "*.egg-info" -type d -exec rm -rf {} +
-    @rm -rf \
-    	"$(builddir)" \
-    	"$(distdir)"
+	@find "$(CURDIR)" -path "$(VENV_DIR)" -prune -o \
+			\
+		-name ".eggs" -type d -exec rm -rf {} + -o \
+		-name "*.dist-info" -type d -exec rm -rf {} + -o \
+		-name "*.egg-info" -type d -exec rm -rf {} +
+	@rm -rf \
+		"$(builddir)" \
+		"$(distdir)"
 
 {%- if cookiecutter.enable_sphinx == 'true' %}
 
-    @find "$(CURDIR)" -name "$(autodocdir)/*.rst" -exec rm -f {} +
-    @rm -rf \
-    	"$(SPHINX_BUILDDIR)" \
-    	"$(SPHINX_STATIC)" \
-    	"$(SPHINX_TEMPLATES)"
+	@find "$(CURDIR)" -name "$(autodocdir)/*.rst" -exec rm -f {} +
+	@rm -rf \
+		"$(SPHINX_BUILDDIR)" \
+		"$(SPHINX_STATIC)" \
+		"$(SPHINX_TEMPLATES)"
 {%- endif %}
 
 .PHONY: mostlyclean
