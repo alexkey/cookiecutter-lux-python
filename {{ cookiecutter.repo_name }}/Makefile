@@ -144,7 +144,7 @@ requirements:
 
 $(VENV_DIR): requirements.txt requirements-test.txt
 	@echo
-	$(PYTHON) -m venv "$(VENV_DIR)";
+	@$(PYTHON) -m venv "$(VENV_DIR)";
 	@if [[ -d "$(VENV_DIR)" ]]; then \
 		\
 		source "$${path}/bin/activate"; \
