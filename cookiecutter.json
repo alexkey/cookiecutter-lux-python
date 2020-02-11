@@ -16,5 +16,5 @@
     "shebang_coding": "# -*- coding: utf-8 -*-",
     "shebang_shell": "#!/usr/bin/env bash",
     "shebang_python": "#!/usr/bin/env {{ cookiecutter.python }}",
-    "enable_sphinx": "false",
+    "enable_sphinx": "false"
 }
