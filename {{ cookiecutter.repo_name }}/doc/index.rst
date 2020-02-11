@@ -8,8 +8,8 @@ Contents
    :maxdepth: 1
 
    README <readme>
-   Contributing <contributing>
    Authors <authors>
+   Contributing <contributing>
 
 Navigation
 ----------

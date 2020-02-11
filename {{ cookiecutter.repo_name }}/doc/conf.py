@@ -16,8 +16,8 @@ source_suffix = ['.rst']
 master_doc = 'index'
 
 # General information about the project.
-project = '{{ cookiecutter.name | replace("'", "\'") }}'
-author = '{{ cookiecutter.author_name | replace("'", "\'") }}'
+project = '{{ cookiecutter.name }}'
+author = '{{ cookiecutter.author_name }}'
 copyright = f'{{ cookiecutter.year }}, {author}'
 
 # The short X.Y version.
@@ -55,7 +55,7 @@ latex_elements = {
 latex_documents = [(
     master_doc,
     '{{ cookiecutter.repo_name }}.tex',
-    '{{ cookiecutter.name | replace("'", "\'") }} Documentation',
+    '{{ cookiecutter.name }} documentation',
     author,
     'manual'
 )]
