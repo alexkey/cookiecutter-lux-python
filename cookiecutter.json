@@ -14,7 +14,7 @@
     "python": "python{{ cookiecutter.python_version[0] }}",
     "virtualenv_dir_name": ".venv",
     "shebang_coding": "# -*- coding: utf-8 -*-",
-    "shebang_shell": "#!/usr/bin/env bash",
+    "shebang_shell": "#!/bin/bash",
     "shebang_python": "#!/usr/bin/env {{ cookiecutter.python }}",
     "enable_sphinx": "false"
 }
