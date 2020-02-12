@@ -249,9 +249,7 @@ docker-run:
 # target: docker-clean - Remove all unused images, built containers and volumes
 docker-clean:
 	@$(DOCKER) ps -aq | xargs $(DOCKER) rm -fv
-	@$(DOCKER) images -a | $(GREPTOOL) "<none>" | $(AWK) '{print $$3}' | xargs $(DOCKER) rmi -f
-	@$(DOCKER) image prune -af
-	@$(DOCKER) volume prune -f
+	@$(DOCKER) system prune -af --volumes
 
 {%- if cookiecutter.enable_sphinx == 'true' %}
 
