@@ -1,4 +1,4 @@
-FROM python:{{ cookiecutter.python_version }}
+FROM python:{{ cookiecutter.python_version }}-slim-buster
 WORKDIR /var/app
 COPY requirements.txt requirements.txt
 COPY dist/*.whl /var/app
