@@ -24,139 +24,123 @@ Requirements
 There are a couple of tools for building, packaging, documentation and so on, that must be
 installed.
 
-Main tools are:
-
 * GNU sed (``brew install gnu-sed`` for macOS),
 
-* ack (optionally),
+* ripgrep (optionally),
 
 * awk,
 
 * Docker,
 
-* Vagrant (optionally),
+* *Sphinx* (for sphinx-build and sphinx-apidoc).
 
-* *virtualenv* at global level.
-
-To check availability of main tools just type ``make``.
-
-Tools for documenting the package:
-
-* *Sphinx* package (sphinx-build, sphinx-apidoc),
-
-* MacTeX_ distribution (optionally; pdflatex CLI tool, fonts, styles – for rendering docs in
-  PDF format).
-
-To check availability of documentation tools type ``make doc``.
+To check availability of main tools just type ``make`` or ``make doc``.
 
 
-Makefile Targets and Features
------------------------------
+Features
+--------
 
-* Compile Pip requirements from ``requirements.in`` to ``requirements.txt``::
+* To get help about available Makefile targets type::
+
+    make help
+
+Creating the virtual environment
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+# Compile Pip requirements from ``requirements.in`` to ``requirements.txt`` using *pip-tools*
+  (via Docker)::
 
     make requirements
 
-* Auto creation of virtual environment using ``requirements.txt`` and
+# Create the new virtual environment based on ``requirements.txt`` and
   ``requirements-test.txt``::
 
     make venv
 
-* Installing package into a virtual environment in so-called "development mode" and removing it
-  later::
+# Install the package into a virtual environment in so-called "development mode"::
 
-    # after `make venv`
-
+    source .venv/bin/activate
     make install
 
-    # (hard working here)
+    # ...hard working here...
 
     make uninstall
+    deactivate
 
-* Testing the package using PyTest_::
+Testing the package
+~~~~~~~~~~~~~~~~~~~
+
+Pytest_ is used as a test tool by default.
+
+* To run tests type (within a virtual environment)::
 
     make check
 
-* Building and packaging::
+Building the package from scratch
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-    # Binary wheel distribution
-    make dist
+* Create a source distribution (tarball with sources)::
 
-    # Source distribution (tarball with sources)
     make sdist
+    ls -al dist/*.tar.gz
 
-* Local docker statistics::
+* Create a binary (wheel) distribution::
 
-    # Display system-wide information
-    docker-info
+    make dist
+    ls -al dist/*.whl
 
-    # Show all images and containers
-    docker-stats
+Dealing with containers
+~~~~~~~~~~~~~~~~~~~~~~~
 
-    # Same as `stats`, but more details provided
-    docker-statsall
+* Display system-wide information::
 
-* Build and run interactive containers::
+    make docker-info
 
-    # Build image from scratch
-    docker-build
+* Show all images, containers and volumes::
 
-    # Run temporary container in an interactive mode
-    docker-run
+    make docker-stats
 
-* Docker cleaners::
+* Build the image according to ``Dockerfile``::
 
-    # Clean dangling images
-    docker-clean
+    make docker-build
 
-    # Clean built containers
-    docker-distclean
+* Run temporary container in an interactive mode::
 
-    # Remove all unused images, built containers and volumes
-    docker-mostlyclean
+    make docker-run
 
-* Render project's documentation using Sphinx_::
+* Remove all unused images, built containers and volumes::
 
-    make apidoc  # to create an API documentation
+    make docker-clean
+
+Documenting the project using Sphinx_
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+# Build an API documentation::
+
+    make apidoc
+
+# Build the documentation as a standalone HTML files::
 
     make html
-    # or
-    make pdf
+    open doc/_build/html/index.html
 
-* Managing Vagrant_ virtual machines::
+`GNU-style cleaners`_
+~~~~~~~~~~~~~~~~~~~~~
 
-    # Update the machine within current Vagrant environment
-    make vagrant-update
+* Clean the project's directory (precompiled and temporary files)::
 
-    # Start and provision the Vagrant environment
-    make vagrant-up
-
-    # Connect to the machine via SSH as root
-    make vagrant-ssh
-
-    # Stop the machine
-    make vagrant-halt
-
-    # Stop and delete all traces of the machine
-    make vagrant-destroy
-
-* `GNU-style cleaners`_::
-
-    # Clean the project's directrory (Python related caches)
     make clean
 
-    # Clean the project's build output (Eggs, ditributions, builds)
+* Clean the project's build output (eggs, distributions, builds)::
+
     make distclean
 
-    # Delete almost everything (including Vagrant data and virtual environment)
+* Delete almost everything (including virtual environment)::
+
     make mostlyclean
 
 
-
-
-.. _Cookiecutter: https://github.com/audreyr/cookiecutter/
-.. _MacTex: https://tug.org/mactex/mactex-download.html
-.. _PyTest: https://docs.pytest.org/en/latest/
-.. _Sphinx: http://www.sphinx-doc.org/
-.. _Vagrant: https://www.vagrantup.com/
+.. _Cookiecutter: https://github.com/audreyr/cookiecutter
+.. _Pytest: https://docs.pytest.org/en/latest
+.. _Sphinx: http://www.sphinx-doc.org
 .. _`GNU-style cleaners`: https://www.gnu.org/prep/standards/html_node/Standard-Targets.html#Standard-Targets
