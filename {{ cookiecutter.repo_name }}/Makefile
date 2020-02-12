@@ -233,13 +233,12 @@ docker-stats:
 	@echo
 	@$(DOCKER) volume ls
 
-Dockerfile:
-	@$(DOCKER) build -f "$(CURDIR)/Dockerfile" -t $(PACKAGE_NAME):$(PACKAGE_VERSION) \
-		--no-cache .
-
 .PHONY: docker-build
 # target: docker-build - Build image from scratch
-docker-build: Dockerfile
+docker-build: dist
+	@echo
+	@$(DOCKER) build -f "$(CURDIR)/Dockerfile" -t $(PACKAGE_NAME):$(PACKAGE_VERSION) \
+		--no-cache .
 
 .PHONY: docker-run
 # target: docker-run - Run temporary container in an interactive mode
