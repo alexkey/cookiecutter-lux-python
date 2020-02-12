@@ -290,7 +290,7 @@ help:
 ### Cleaners
 
 .PHONY: clean
-# target: clean - Clean the project's directrory
+# target: clean - Clean the project's directory
 clean:
 	@find "$(CURDIR)" \
 		-name ".cache" -type d -exec rm -rfv {} + -o \
