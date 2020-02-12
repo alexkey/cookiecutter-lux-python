@@ -297,7 +297,8 @@ help:
 .PHONY: clean
 # target: clean - Clean the project's directory
 clean:
-	@find "$(CURDIR)" \
+	@find "$(CURDIR)" -path "$(CURDIR)/$(VENV_DIR)" -prune -o \
+			\
 		-name ".cache" -type d -exec rm -rfv {} + -o \
 		-name ".mypy_cache" -type d -exec rm -rf {} + -o \
 		-name ".pytest_cache" -type d -exec rm -rf {} + -o \
@@ -308,7 +309,7 @@ clean:
 .PHONY: distclean
 # target: distclean - Clean the project's build output
 distclean:
-	@find "$(CURDIR)" -path "$(VENV_DIR)" -prune -o \
+	@find "$(CURDIR)" -path "$(CURDIR)/$(VENV_DIR)" -prune -o \
 			\
 		-name ".eggs" -type d -exec rm -rf {} + -o \
 		-name "*.dist-info" -type d -exec rm -rf {} + -o \
