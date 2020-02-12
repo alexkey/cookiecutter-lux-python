@@ -48,12 +48,12 @@ Creating the virtual environment
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 1. Compile Pip requirements from ``requirements.in`` to ``requirements.txt`` using *pip-tools*
-  (via Docker)::
+   (via Docker)::
 
     make requirements
 
 2. Create the new virtual environment based on ``requirements.txt`` and
-  ``requirements-test.txt``::
+   ``requirements-test.txt``::
 
     make venv
 
