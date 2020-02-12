@@ -62,7 +62,9 @@ setup_params = dict(
     zip_safe=False,
 
     entry_points={
-        'console_scripts': []
+        'console_scripts': [
+            '{{ cookiecutter.repo_name }} = {{ cookiecutter.repo_name }}.{{ cookiecutter.repo_name }}:main',
+        ]
     },
 
     install_requires=read_requirements('requirements.txt'),
