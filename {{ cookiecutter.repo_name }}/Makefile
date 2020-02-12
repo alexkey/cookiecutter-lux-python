@@ -138,6 +138,7 @@ endif
 .PHONY: requirements
 # target: requirements - Compile Pip requirements
 requirements:
+	@echo
 	@$(DOCKER) run -it --rm \
 		-v "$(CURDIR)/requirements.in:/requirements.in" \
 		-v "$(CURDIR)/requirements.txt:/requirements.txt" \
@@ -204,6 +205,7 @@ uninstall:
 .PHONY: check
 # target: check - Run tests
 check:
+	@echo
 	@if [[ -n "$(shell which ${TESTTOOL})" ]]; then \
 		$(TESTTOOL) "$(srcdir)"; \
 	else \
@@ -242,12 +244,14 @@ docker-build: Dockerfile
 .PHONY: docker-run
 # target: docker-run - Run temporary container in an interactive mode
 docker-run:
+	@echo
 	@$(DOCKER) run -it --rm -p $(DOCKER_PORT):$(DOCKER_PORT) \
 		$(PACKAGE_NAME):$(PACKAGE_VERSION)
 
 .PHONY: docker-clean
 # target: docker-clean - Remove all unused images, built containers and volumes
 docker-clean:
+	@echo
 	@$(DOCKER) ps -aq | xargs $(DOCKER) rm -fv
 	@$(DOCKER) system prune -af --volumes
 
@@ -266,12 +270,14 @@ endif
 .PHONY: apidoc
 # target: apidoc - Create one reST file with automodule directives per package
 apidoc: doc
+	@echo
 	@$(SPHINX_APIDOC) --force --private -o "$(autodocdir)" $(PACKAGE_NAME) \
 		$(foreach module,$(AUTODOC_EXCLUDE_MODULES),$(PACKAGE_NAME)/$(module))
 
 .PHONY: html
 # target: html - Render standalone HTML files
 html: doc
+	@echo
 	@$(SPHINX) -b html $(SPHINX_OPTS) "$(SPHINX_BUILDDIR)/html"
 {%- endif %}
 
