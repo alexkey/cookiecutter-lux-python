@@ -47,17 +47,17 @@ Features
 Creating the virtual environment
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-# Compile Pip requirements from ``requirements.in`` to ``requirements.txt`` using *pip-tools*
+#. Compile Pip requirements from ``requirements.in`` to ``requirements.txt`` using *pip-tools*
   (via Docker)::
 
     make requirements
 
-# Create the new virtual environment based on ``requirements.txt`` and
+#. Create the new virtual environment based on ``requirements.txt`` and
   ``requirements-test.txt``::
 
     make venv
 
-# Install the package into a virtual environment in so-called "development mode"::
+#. Install the package into a virtual environment in so-called "development mode"::
 
     source .venv/bin/activate
     make install
@@ -115,11 +115,11 @@ Dealing with containers
 Documenting the project using Sphinx_
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-# Build an API documentation::
+#. Build an API documentation::
 
     make apidoc
 
-# Build the documentation as a standalone HTML files::
+#. Build the documentation as a standalone HTML files::
 
     make html
     open doc/_build/html/index.html
