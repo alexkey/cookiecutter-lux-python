@@ -32,6 +32,8 @@ installed.
 
 * Docker,
 
+* *Virtualenv*,
+
 * *Sphinx* (for sphinx-build and sphinx-apidoc).
 
 To check availability of main tools just type ``make`` or ``make doc``.

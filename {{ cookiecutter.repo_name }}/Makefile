@@ -66,6 +66,12 @@ PYTHON_VERSION_INFO = $(shell ${PYTHON} -c 'if 1: \
 	')
 PYTHON_INFO = $(PYTHON_BIN) -> $(PYTHON_VERSION_INFO)
 
+VIRTUALENV = virtualenv
+VIRTUALENV_BIN = $(shell which ${VIRTUALENV})
+ifeq ($(VIRTUALENV_BIN),)
+	tools += $(VIRTUALENV)
+endif
+
 VENV_DIR = .venv
 
 PYTHON_STD_PKGS = \
@@ -150,7 +156,7 @@ requirements:
 
 $(VENV_DIR): requirements.txt requirements-test.txt
 	@echo
-	@$(PYTHON) -m venv "$(VENV_DIR)";
+	@$(VIRTUALENV) "$(VENV_DIR)";
 	@if [[ -d "$(VENV_DIR)" ]]; then \
 		\
 		source "$(VENV_DIR)/bin/activate"; \
