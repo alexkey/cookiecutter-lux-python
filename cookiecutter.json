@@ -10,7 +10,7 @@
     "url": "https://waldo.example.com",
     "license": "BSD3",
     "year": "2020",
-    "python_version": "3.8.1",
+    "python_version": "3.8.2",
     "python": "python{{ cookiecutter.python_version[0] }}",
     "virtualenv_dir_name": ".venv",
     "shebang_coding": "# -*- coding: utf-8 -*-",
