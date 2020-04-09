@@ -156,7 +156,7 @@ requirements:
 
 $(VENV_DIR): requirements.txt requirements-test.txt
 	@echo
-	@$(VIRTUALENV) "$(VENV_DIR)";
+	@$(VIRTUALENV) -p $(PYTHON3_VER) "$(VENV_DIR)";
 	@if [[ -d "$(VENV_DIR)" ]]; then \
 		\
 		source "$(VENV_DIR)/bin/activate"; \
