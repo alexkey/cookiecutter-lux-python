@@ -215,7 +215,7 @@ check:
 	@if [[ -n "$(shell which ${TESTTOOL})" ]]; then \
 		$(TESTTOOL) "$(srcdir)"; \
 	else \
-		echo -n "ERROR: \`$(TESTTOOL)\` binary is missing"; \
+		echo "ERROR: \`$(TESTTOOL)\` binary is missing"; \
 		exit $(ERROR_PYTHON_TESTTOOL); \
 	fi
 
