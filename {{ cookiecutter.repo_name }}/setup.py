@@ -20,7 +20,7 @@ def read_requirements(file: str) -> List[str]:
     if not Path(file).is_file():
         raise FileNotFoundError(file)
 
-    alphabet = f'{string.digits}{string.ascii_lowercase}_-'
+    alphabet = f'{string.digits}{string.ascii_lowercase}_-=.'
 
     with open(file) as fd:
         return list(
@@ -29,7 +29,7 @@ def read_requirements(file: str) -> List[str]:
                                       (x[0] in string.ascii_lowercase if x else False) and
                                       all(c in alphabet for c in x)
                                       ),
-                           map(lambda s: s.strip().lower(), fd)
+                           map(lambda s: s.split('#', 1)[0].strip().lower(), fd)
                            )
                     )
 
