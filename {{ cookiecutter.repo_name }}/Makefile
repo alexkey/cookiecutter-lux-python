@@ -89,10 +89,16 @@ ifeq ($(shell which ${DOCKER}),)
 	tools += $(DOCKER)
 endif
 
-DOCKER_PS_ARGS = -s
+DOCKER_PS_ARGS = -a -s
 
 DOCKER_BASE_IMAGE = python:$(PYTHON3_VER)-slim-buster
 DOCKER_PORT = 8088
+
+DOCKER_WORKDIR = \
+	/usr/local/lib/python$(shell echo ${PYTHON3_VER} | head -c 3)/site-packages/$(PACKAGE_NAME)
+
+DOCKER_CONFIG := $(if ${DOCKER_CONFIG},${DOCKER_CONFIG},dev.toml)
+DOCKER_OPTS = --config "$(DOCKER_WORKDIR)/cfg/$(DOCKER_CONFIG)"
 
 {%- if cookiecutter.enable_sphinx == 'true' %}
 
@@ -241,7 +247,7 @@ docker-stats:
 
 .PHONY: docker-build
 # target: docker-build - Build image from scratch
-docker-build: dist
+docker-build:
 	@echo
 	@$(DOCKER) build -f "$(CURDIR)/Dockerfile" -t $(PACKAGE_NAME):$(PACKAGE_VERSION) \
 		--no-cache .
@@ -251,7 +257,8 @@ docker-build: dist
 docker-run:
 	@echo
 	@$(DOCKER) run -it --rm -p $(DOCKER_PORT):$(DOCKER_PORT) \
-		$(PACKAGE_NAME):$(PACKAGE_VERSION)
+		$(PACKAGE_NAME):$(PACKAGE_VERSION) \
+		$(DOCKER_OPTS)
 
 .PHONY: docker-clean
 # target: docker-clean - Remove all unused images, built containers and volumes
