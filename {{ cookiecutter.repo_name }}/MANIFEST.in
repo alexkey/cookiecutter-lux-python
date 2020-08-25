@@ -9,6 +9,7 @@ include requirements.txt
 include setup.cfg
 
 recursive-include doc *.py *.rst
+recursive-include {{ cookiecutter.repo_name }}/cfg *.toml
 
 prune .venv
 global-exclude __pycache__ *.py[cod]
