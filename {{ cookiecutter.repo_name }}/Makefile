@@ -219,7 +219,7 @@ uninstall:
 check:
 	@echo
 	@if [[ -n "$(shell which ${TESTTOOL})" ]]; then \
-		$(TESTTOOL) "$(srcdir)"; \
+		$(TESTTOOL) -vv "$(srcdir)"; \
 	else \
 		echo "ERROR: \`$(TESTTOOL)\` binary is missing"; \
 		exit $(ERROR_PYTHON_TESTTOOL); \
